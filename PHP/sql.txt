@@ -1,0 +1,41 @@
+
+
+# create table
+$sql="CREATEDATABASE MYDB";
+
+#create table 
+
+$sql="CREATE TABLE emp(
+    id INT(10)USING AUTOINCRIMENT KEY PRIMARY KEY,
+    fistname VARCHAR(50) NOT NULL,
+    lastname VARCHAR(50) NOT NULL,
+    email VARCHAR(50),
+    reg_date TIMESTAMP DEFAULT
+)";
+
+#ALL DATA SHOW 
+ $sql= "SELECT * FROM TABLE emp";
+
+#INSERT DATA
+
+$sql="INSERT INTO EMP(firstname,lastname,email,reg_date)VALUE('hardik','vankar','h@gmail.com','22/11/24')";
+
+#UPDATE DATA
+
+$sql="UPDATE emp SET lastname='xyz' WHERE id= 2";
+
+#DELETE DATA
+
+$sql="DELETE FROM emp WHERE id=2";
+
+#WHAERE DATA
+
+$sql="SELECT id fistname lastname FROM emp WHERE lastname='xyz'";
+
+#ORDER BY
+
+$sql ="SELECT id firstname lastname FROM emp ORDER BY lastname";
+
+#LIMITE DATA
+
+$sql="SELECT * FROM ORDERS LIMIT 20";
