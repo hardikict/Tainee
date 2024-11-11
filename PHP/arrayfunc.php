@@ -11,8 +11,6 @@ print_r(array_change_key_case($arry,CASE_UPPER));
 echo'<br>';
 echo'<br>';
 
-
-
 //column array
 $a=[
 

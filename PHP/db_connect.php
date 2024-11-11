@@ -5,8 +5,6 @@ $servername="localhost";
 $username="root";
 $password="";
 $dbname="";
-
-
 //ceate connection
 $conn= new mysqli($servername,$username,$password,$dbname);
 
@@ -17,8 +15,5 @@ if($conn){
 }else{
     echo "your connection faild ".die();
 }
-
-
-
 
 ?>

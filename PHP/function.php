@@ -5,7 +5,6 @@ declare(strict_types=1);
 echo "<h1>Function Of PHP</h1>";
 echo '<br>';
 
-
 // there are tow types of function
 //1 built in function
 //2 user define function 
