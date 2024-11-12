@@ -243,3 +243,5 @@ echo stristr("this is best town","TOWN");
 echo '<br>';
 echo '<br>';
 
+//str shuffle
+echo str_shuffle("Hello world");
