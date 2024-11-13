@@ -447,7 +447,6 @@ $age = ["piter" => "22", "jio" => "25", "vodaphon" => "23", "Artel" => "42"];
 arsort($age);
 foreach ($age as $key => $value) {
     echo "This name $key is age $value <br>";
-    
 }
 echo '<br>';
 echo '<br>';
@@ -462,10 +461,92 @@ foreach ($age as $key => $value) {
 echo '<br>';
 
 //compect arry function
-// $firstname="varma";
-// $lastname="tilak";
-// $age="32";
+$firstname = "varma";
+$lastname = "tilak";
+$age = "32";
 
-// $name=["$firstname","$lastname","$age"];
-// $result = compact($name,"$age");
-// print_r($result);
+$name = ["firstname", "lastname", "age"];
+$result = compact($name, "$age");
+print_r($result);
+echo '<br>';
+echo '<br>';
+
+//count array function return the number of array
+$color = ["red", "blue", "green", "dark"];
+print_r(count($color));
+echo '<br>';
+echo '<br>';
+
+//each function show the current value and key
+// $col=["red","blue","green","dark"];
+// print_r(each($col));
+
+//end function show the last element
+$color = ["red", "blue", "green", "dark"];
+print_r(current($color));
+echo '<br>';
+print_r(end($color));
+echo '<br>';
+
+//in array function search array 
+$color = ["gold", "red", "blue", "green", "dark"];
+if (in_array("green", $color)) {
+    echo "Match success";
+} else {
+    echo "Match not success";
+}
+echo '<br>';
+echo '<br>';
+
+//key function return the array key 
+$color = ["gold", "red", "blue", "green", "dark"];
+echo "this is color key is " . key($color);
+echo '<br>';
+echo '<br>';
+
+//krsort show the decending value
+
+$age = ["hardik" => "20", "varun" => "32", "king" => "43", "varma" => "33"];
+krsort($age);
+foreach ($age as $k => $value) {
+    echo "key=" . $k . ",value=" . $value;
+    echo '<br>';
+}
+echo '<br>';
+
+//list function used for listing of array
+$color = ["gold", "red", "blue", "green", "dark"];
+list($a, $b, $c) = $color;
+echo "this is a color $a, $b and $c";
+
+//rsort function to show the decending order
+$color = ["gold", "red", "blue", "green", "dark"];
+rsort($color);
+
+$clenth = count($color);
+for ($a = 0; $a < $clenth; $a++) {
+    echo $color[$a];
+    echo '<br>';
+}
+echo '<br>';
+echo '<br>';
+
+//shuffle function use of randam 
+$color = ["gold", "red", "blue", "green", "dark"];
+shuffle($color);
+print_r($color);
+echo '<br>';
+
+//size of array function 
+$color = ["gold", "red", "blue", "green", "dark"];
+print_r(sizeof($color));
+echo '<br>';
+echo '<br>';
+
+//sort function
+$color = ["gold", "red", "blue", "green", "dark"];
+sort($color);
+print_r($color);
+echo '<br>';
+
+
