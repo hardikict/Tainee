@@ -235,7 +235,7 @@ $product->productOwner();
 echo "<br>";
 echo "<br>";
 
-// Traits use of a multiple parents class used in one childe class 
+// Traits use of a multiple parents class used in one childe class using use keyword
 
 trait companyMain1
 {
@@ -305,13 +305,15 @@ class fruit{
     public $salary;
 
 
-    function __construct($name1,$salary){
-        $this->name=$name1;
+    function __construct($name,$salary){
+        $this->name=$name;
         $this->salary=$salary;
 
     }
-    function __destructor(){
-        echo"the furits is {$this->name}";
+    function __destruct(){
+        echo "The furits is {$this->name}";
     }
 }
-$app = new fruit("apple",20,000);
+$app = new fruit("apple",20.000);
+
+

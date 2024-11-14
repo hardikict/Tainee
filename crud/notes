@@ -1,0 +1,33 @@
+INSERT INTO `emp` (`firstname`, `lastname`, `email`, `password`, `cpassword`, `profileimage`, `number`, `gender`, `hobby`, `dropdown`) VALUES ('hardik', 'varma', 'h@gmail.com', '123', '123', 'https://dyl347hiwv3ct.cloudfront.net/app/uploads/2023/11/Left_Image_Flat-1536x1152.jpg', '452563556', '1', '', '');
+
+
+//fatch all data 
+    $sql = "SELECT * FROM `emp` ";
+    $result = mysqli_query($conn, $sql);
+
+    $num = mysqli_num_rows($result);
+    echo $num ;
+    if ($num > 0) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            $row = ['firstName'];
+            $row = ['firstLast'];
+            $row = ['email'];
+            $row = ['password'];
+            $row = ['confirmPassword'];
+            $row = ['profileImage'];
+            $row = ['phoneNumber'];
+            $row = ['gender'];
+            $row = ['hobby'];
+            $row = ['country'];
+        }
+    }
+
+
+    if (isset($_POST['country'])) {
+            foreach ($_POST['country'] as $day) {
+               echo $country ;
+               exit;
+            }
+        } else {
+            $country = "not available";
+        }
