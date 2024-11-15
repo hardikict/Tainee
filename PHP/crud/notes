@@ -1,33 +1,114 @@
 INSERT INTO `emp` (`firstname`, `lastname`, `email`, `password`, `cpassword`, `profileimage`, `number`, `gender`, `hobby`, `dropdown`) VALUES ('hardik', 'varma', 'h@gmail.com', '123', '123', 'https://dyl347hiwv3ct.cloudfront.net/app/uploads/2023/11/Left_Image_Flat-1536x1152.jpg', '452563556', '1', '', '');
 
+echo"firstName".$row['firstName']."<br>";
+            echo"lastName".$row['lastName']."<br>";
+            echo"email".$row['email']."<br>";
+            echo"password".$row['password']."<br>";
+            echo"confirmPassword".$row['confirmPassword']."<br>";
+            echo"profileImage".$row['profileImage']."<br>";
+            echo"phoneNumber".$row['phoneNumber']."<br>";
+            echo"gender".$row['gender']."<br>";
+            echo"hobby".$row['hobby']."<br>";
+            echo"country".$row['country']."<br>";
+            echo "</table>";
 
-//fatch all data 
-    $sql = "SELECT * FROM `emp` ";
-    $result = mysqli_query($conn, $sql);
+            $row['firstName'];
+            $row['lastName'];
+            $row['email'];
+            $row['password'];
+            $row['confirmPassword'];
+            $row['profileImage'];
+            $row['phoneNumber'];
+            $row['gender'];
+            $row['hobby'];
+            $row['country'];
 
-    $num = mysqli_num_rows($result);
-    echo $num ;
-    if ($num > 0) {
-        while ($row = mysqli_fetch_assoc($result)) {
-            $row = ['firstName'];
-            $row = ['firstLast'];
-            $row = ['email'];
-            $row = ['password'];
-            $row = ['confirmPassword'];
-            $row = ['profileImage'];
-            $row = ['phoneNumber'];
-            $row = ['gender'];
-            $row = ['hobby'];
-            $row = ['country'];
+
+
+            echo "<td>".htmlspecialchars($result)."</td>";
+            
+
+            echo "firstName" . $row['firstName'] . "<br>";
+            echo "lastName" . $row['lastName'] . "<br>";
+            echo "email" . $row['email'] . "<br>";
+            echo "password" . $row['password'] . "<br>";
+            echo "confirmPassword" . $row['confirmPassword'] . "<br>";
+            echo "profileImage" . $row['profileImage'] . "<br>";
+            echo "phoneNumber" . $row['phoneNumber'] . "<br>";
+            echo "gender" . $row['gender'] . "<br>";
+            echo "hobby" . $row['hobby'] . "<br>";
+            echo "country" . $row['country'] . "<br>";
+
+
+
+            if ($result->num_rows > 0) {
+        echo "<table>";
+        while ($row = $result->fetch_assoc()) {
+            echo "<tr>";
+            foreach ($row as $value) {
+                echo "<td>" . $row['firstName'] . "</td>";
+                echo "<td>" . $row['lastName'] . "</td>";
+                echo "<td>" . $row['email'] . "</td>";
+                echo "<td>" . $row['password'] . "</td>";
+                echo "<td>" . $row['confirmPassword'] . "</td>";
+                echo "<td>" . $row['profileImage'] . "</td>";
+                echo "<td>" . $row['phoneNumber'] . "</td>";
+                echo "<td>" . $row['gender'] . "</td>";
+                echo "<td>" . $row['hobby'] . "</td>";
+                echo "<td>" . $row['country'] . "</td>";
+            }
+            echo "<tr>";
         }
     }
+    echo "</table>";
 
 
-    if (isset($_POST['country'])) {
-            foreach ($_POST['country'] as $day) {
-               echo $country ;
-               exit;
+    echo "<tr>
+            <th>firstName</th>
+            <th>lastName</th>
+            <th>email</th>
+            <th>password</th>
+            <th>confirmPassword</th>
+            <th>profileImage</th>
+            <th>phoneNumber</th>
+            <th>gender</th>
+            <th>hobby</th>
+            <th>country</th>
+
+            </tr>";
+
+
+
+
+            UPDATE `emp` SET `firstName`=[value-1],`lastName`=[value-2],`email`=[value-3],`empPassword`=[value-4],`confirmPassword`=[value-5],`profileImage`=[value-6],`phoneNumber`=[value-7],`gender`=[value-8],`hobby`=[value-9],`country`=[value-10],`time`=[value-11] WHERE 1       
+
+
+
+            sql = "UPDATE `phptrip` SET `name` = 'FromBihar' WHERE `dest` = 'Bihar'";
+$result = mysqli_query($conn, $sql);
+echo var_dump($result);
+$aff = mysqli_affected_rows($conn);
+echo "<br>Number of affected rows: $aff <br>";
+if($result){
+    echo "We updated the record successfully";
+}
+else{
+    echo "We could not update the record successfully";
+}
+
+
+
+
+            if (isset($_POST['submit']))
+             {
+                header("Location: fetch.php");
             }
-        } else {
-            $country = "not available";
-        }
+            
+
+$sql = "DELETE FROM Employees WHERE firstname=Rohan";
+
+if ($conn->query($sql) === TRUE) {
+  echo "Record deleted successfully";
+} else {
+  echo "Error deleting record: " . $conn->error;
+}

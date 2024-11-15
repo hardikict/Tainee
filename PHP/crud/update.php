@@ -1,6 +1,4 @@
-<?php include("db_connect.php");
-$success = false;
-?>
+
 
 <!doctype html>
 <html lang="en">
@@ -8,16 +6,16 @@ $success = false;
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>CRUD</title>
+    <title>Update data</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 
 <body class="bg-secondary">
-
+    <?php include("db_connect.php"); ?>
     <form action="" method="POST">
         <div class="container mt-5 ">
-            <h3 class="text-center">Ragistation Form</h3>
+            <h3 class="text-center">Update Form</h3>
             <div class="mb-3">
                 <label for="exampleInputPassword1" class="form-label">FirstName</label>
                 <input type="text" class="form-control" id="firstName" name="firstName">
@@ -82,27 +80,23 @@ $success = false;
             <div class="dropdown pt-3 pb-4  ">
                 <label for="country">Choose a country:</label>
                 <select name="country" id="country">
-                    <option value="India">India</option>
+                <option value="India">India</option>
                     <option value="UK">Uk</option>
                     <option value="Nepal">Nepal</option>
                     <option value="Japan">Japan</option>
                     <option value="Brazil">Brazil</option>
                     <option value="Afganistan">Afganitan</option>
-
-
                 </select>
             </div>
             <button type="submit" name="submit" class="btn btn-success">Submit</button>
-            <button type="submit" name="fetch" class="btn btn-dark"><a href="fetch.php">Fetch</a></button>
-
     </form>
     </div>
 
     <?php
-    //insert data
+    // UPDATE DATA
 
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
+    if ($_SERVER['REQUEST_METHOD'] == 'POST'&& isset($_POST['id'])) {
+        $id = $_POST['id'];
         $firstName = $_POST['firstName'];
         $lastName = $_POST['lastName'];
         $email = $_POST['email'];
@@ -113,34 +107,21 @@ $success = false;
         $gender = $_POST['gender'];
         $hobby = implode(",", $_POST['hobby']);
         $country = $_POST['country'];
-        $success = true;
-       
+    }
 
-        //insert sql query
-        $sql = "INSERT INTO `emp` (firstName, lastName, email, empPassword, confirmPassword, profileImage, phoneNumber, gender, hobby, country) VALUES 
-        ('$firstName', '$lastName', '$email', '$empPassword', '$confirmPassword', '$profileImage', '$phoneNumber', '$gender','$hobby','$country')";
+    $sql = "UPDATE `emp` SET `firstName`=$firstName,`lastName`=$lastName,`email`=$email,`empPassword`=$empPassword,`confirmPassword`=$confirmPassword,`profileImage`=$profileImage,`phoneNumber`=$phoneNumber,`gender`=$gender,`hobby`=$hobby,`country`=$country, WHERE id = $id";
 
-        $result = mysqli_query($conn, $sql);
-        if ($result) {
-            // header('location:/fetch.php');
-            // echo " insert data successfull";
-
-            if ($success) 
-            {
-                echo " <div class='alert alert-success alert-dismissible fade show' role=alert'>
-                    <strong>Success!</strong> Your Data Inserted .
-                    <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
-                    </div>";
-            }
-        } else {
-            echo "can not insert data";
-        }
+    $result = mysqli_query($conn, $sql);
+    if ($result){  
+        echo "Update Data successfully";
+    } else {
+        echo "Can not Update data";
     }
 
 
+ 
 
-
-
+    
     ?>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
