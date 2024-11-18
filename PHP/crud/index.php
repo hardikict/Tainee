@@ -2,7 +2,7 @@
 $success = false;
 ?>
 
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -13,7 +13,7 @@ $success = false;
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 
-<body class="bg-secondary">
+<body>
 
     <form action="" method="POST">
         <div class="container mt-5 ">
@@ -88,8 +88,6 @@ $success = false;
                     <option value="Japan">Japan</option>
                     <option value="Brazil">Brazil</option>
                     <option value="Afganistan">Afganitan</option>
-
-
                 </select>
             </div>
             <button type="submit" name="submit" class="btn btn-success">Submit</button>
@@ -102,7 +100,7 @@ $success = false;
     //insert data
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
+        $id = $_POST['id'];
         $firstName = $_POST['firstName'];
         $lastName = $_POST['lastName'];
         $email = $_POST['email'];
@@ -136,10 +134,6 @@ $success = false;
             echo "can not insert data";
         }
     }
-
-
-
-
 
     ?>
 

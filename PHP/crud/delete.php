@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -16,7 +16,7 @@
     if (isset($_GET['id'])) {
         $id = $_GET['id'];
      
-        $sql = "DELETE FROM `emp` WHERE firstName = $id";
+        $sql = "DELETE FROM `emp` WHERE id = $id";
         $result = mysqli_query($conn, $sql);
 
         if ($result) {
@@ -25,9 +25,7 @@
             echo "Error deleting record";
         }
     }
-      // echo $sql;
-        // exit;
-    // DELETE FROM `emp` WHERE firstName="raman";
+
 
     ?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
