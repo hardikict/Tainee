@@ -1,5 +1,6 @@
 <?php include("db_connect.php");
 $success = false;
+
 ?>
 
 <!DOCTYPE html>
@@ -15,7 +16,7 @@ $success = false;
 
 <body>
 
-    <form action="" method="POST">
+    <form action="" method="POST" enctype="multipart/form-data">
         <div class="container mt-5 ">
             <h3 class="text-center">Ragistation Form</h3>
             <div class="mb-3">
@@ -39,7 +40,7 @@ $success = false;
                 <input type="password" class="form-control" id="confirmPassword" name="confirmPassword">
             </div>
             <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">Profile Image</label>
+                <label for="exampleInputprofileimage" class="form-label">Profile Image</label>
                 <input type="file" class="form-control" id="profileImage" name="profileImage">
             </div>
             <div class="mb-3">
@@ -82,6 +83,7 @@ $success = false;
             <div class="dropdown pt-3 pb-4  ">
                 <label for="country">Choose a country:</label>
                 <select name="country" id="country">
+                    <option value="option">Select</option>
                     <option value="India">India</option>
                     <option value="UK">Uk</option>
                     <option value="Nepal">Nepal</option>
@@ -92,7 +94,6 @@ $success = false;
             </div>
             <button type="submit" name="submit" class="btn btn-success">Submit</button>
             <button type="submit" name="fetch" class="btn btn-dark"><a href="fetch.php">Fetch</a></button>
-
     </form>
     </div>
 
@@ -106,25 +107,46 @@ $success = false;
         $email = $_POST['email'];
         $empPassword = $_POST['empPassword'];
         $confirmPassword = $_POST['confirmPassword'];
-        $profileImage = $_POST['profileImage'];
+        $profileImage = $_FILES['profileImage']['name'];
+        // $profileImage = $_POST['profileImage'];
         $phoneNumber = $_POST['phoneNumber'];
         $gender = $_POST['gender'];
         $hobby = implode(",", $_POST['hobby']);
         $country = $_POST['country'];
         $success = true;
-       
+
+        //Image uplod
+        // print_r($_FILES);
+        if ($_FILES['profileImage']) {
+            $upload_path = "uploads/";
+            $path = $upload_path.basename($_FILES['profileImage']['name']);
+            // $upload_path = "uploads/".$path;
+
+            //    echo $_FILES["profileImage"]["tmp_name"],$upload_path;
+            //    exit;
+
+            if (move_uploaded_file($_FILES["profileImage"]["tmp_name"], $path)) {
+                echo "File uploaded successfully!";
+            } else {
+                echo "Sorry, file not uploaded, please try again!";
+            }
+        }
+        // move_uploaded_file($_FILES['profileImage']['temp_name'],$upload_path);
+        // move_uploaded_file($_FILES['profileImage']['temp_name'],$upload_path)
+        // || die("not upload file");
+
+        // print_r($_FILES);
+        // exit;
+
 
         //insert sql query
         $sql = "INSERT INTO `emp` (firstName, lastName, email, empPassword, confirmPassword, profileImage, phoneNumber, gender, hobby, country) VALUES 
         ('$firstName', '$lastName', '$email', '$empPassword', '$confirmPassword', '$profileImage', '$phoneNumber', '$gender','$hobby','$country')";
-
         $result = mysqli_query($conn, $sql);
         if ($result) {
-            // header('location:/fetch.php');
-            // echo " insert data successfull";
-
-            if ($success) 
-            {
+            // header("location: fetch.php");
+            // die();
+            if ($success) {
                 echo " <div class='alert alert-success alert-dismissible fade show' role=alert'>
                     <strong>Success!</strong> Your Data Inserted .
                     <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>

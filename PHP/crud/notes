@@ -137,3 +137,107 @@ if ($conn->query($sql) === TRUE) {
 
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['id'])) {
+
+            // UPDATE `emp` SET firstName = 'Edited',lastName='editt1',email='edit@gmail.com',empPassword='1211',confirmPassword='1211',profileImage='huhhiu',phoneNumber='21457889',gender='male',hobby='runnig',country='india' WHERE id = 1;
+
+
+            //Exiting data fetch
+    // $id= 'id';
+
+    // $sql = "SELECT * FROM `emp` ";
+    // $result = mysqli_query($conn, $sql);
+    // $row = mysqli_fetch_assoc($result);
+    // // print_r($row);
+    // // exit;
+
+    // // UPDATE DATA
+
+    // if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // echo "hello world";
+    // $id = $_POST['id'];
+    // $firstName = $_POST['firstName'];
+    // $lastName = $_POST['lastName'];
+    // $email = $_POST['email'];
+    // $empPassword = $_POST['empPassword'];
+    // $confirmPassword = $_POST['confirmPassword'];
+    // $profileImage = $_POST['profileImage'];
+    // $phoneNumber = $_POST['phoneNumber'];
+    // $gender = $_POST['gender'];
+    // $hobby = explode(",", $_POST['hobby']);
+    // $country = $_POST['country'];
+
+    // echo "hello";
+
+    // $sql = "UPDATE `emp` SET firstName = '$firstName',lastName='$lastName',email='$email',empPassword='$empPassword',confirmPassword='$confirmPassword',profileImage='$profileImage',phoneNumber='$phoneNumber',gender='$gender',hobby='$hobby',country='$country' WHERE id = 1";
+    // $result = mysqli_query($conn, $sql);
+    // echo "hello";
+    // echo $sql;
+    // exit;
+
+    // echo $result;
+    // exit;
+
+
+    //     if ($result) {
+    //         echo "Update Data successfully";
+    //     } else {
+    //         echo "Can not Update data";
+    //     }
+    // }
+
+
+    if($row['gender']== "female")
+                {
+                    echo "checked";
+                }
+                ?>
+
+
+                <div class="form-check pt-4">
+                <input class="form-check-input" type="checkbox" id="cricket" name="hobby[]" value="Cricket"> 
+                <label class="form-check-label" for="flexCheckDefault">
+                    Cricket
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="Runnig" id="runnig" name="hobby[]">
+                <label class="form-check-label" for="flexCheckChecked">
+                    Runnig
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="Writing"  id="writing" name="hobby[]">
+                <label class="form-check-label" for="flexCheckDefault">
+                    Writing
+                </label>
+            </div>
+
+            $target_dir="crud/upload_img/";
+            $target_file=$target_dir.basename($_FILES['profileImage']['name']);
+            if(move_uploaded_file($_FILES['profileImage']['temp_name'],$target_file)){
+                echo"upload success";
+            }
+            else
+             {  
+                echo "Sorry, file not uploaded, please try again!";  
+            }
+
+
+
+            <?php
+$uploaddir = '/var/www/uploads/';
+$uploadfile = $uploaddir . basename($_FILES['userfile']['name']);
+
+echo '<pre>';
+if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadfile)) {
+    echo "File is valid, and was successfully uploaded.\n";
+} else {
+    echo "Possible file upload attack!\n";
+}
+
+echo 'Here is some more debugging info:';
+print_r($_FILES);
+
+print "</pre>";
+
+?>

@@ -12,47 +12,26 @@
 <body class="bg-secondary">
     <?php include("db_connect.php");
 
-    //Exiting data fetch
-    // $id= 'id';
-
-    $sql = "SELECT * FROM `emp` ";
-    $result = mysqli_query($conn, $sql);
-    $row = mysqli_fetch_assoc($result);
-    // print_r($row);
-    // exit;
-
-    // UPDATE DATA
-
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
-        $id = $_POST['id'];
-        $firstName = $_POST['firstName'];
-        $lastName = $_POST['lastName'];
-        $email = $_POST['email'];
-        $empPassword = $_POST['empPassword'];
-        $confirmPassword = $_POST['confirmPassword'];
-        $profileImage = $_POST['profileImage'];
-        $phoneNumber = $_POST['phoneNumber'];
-        $gender = $_POST['gender'];
-        $hobby = explode(",", $_POST['hobby']);
-        $country = $_POST['country'];
-
-        $sql = "UPDATE `emp` SET firstName = '$firstName',lastName='$lastName',email='$email',empPassword='$empPassword',confirmPassword='$confirmPassword',profileImage='$profileImage',phoneNumber='$phoneNumber',gender='$gender',hobby='$hobby',country='$country', WHERE id = $id";
+     //Get All Data 
+    if (isset($_GET['id'])) {
+        $id = $_GET['id'];
+        $sql = "SELECT * FROM `emp` WHERE id = '$id' ";
         $result = mysqli_query($conn, $sql);
-
-        // echo $result;
-        // exit;
-
-        // UPDATE `emp` SET firstName = 'Edited',lastName='editt1',email='edit@gmail.com',empPassword='1211',confirmPassword='1211',profileImage='huhhiu',phoneNumber='21457889',gender='male',hobby='runnig',country='india' WHERE id = 1;
-
-        if ($result) {
-            echo "Update Data successfully";
-        } else {
-            echo "Can not Update data";
-        }
+        $row = mysqli_fetch_assoc($result);
+        
+        $firstName = $row['firstName'];
+        $lastName = $row['lastName'];
+        $email = $row['email'];
+        $empPassword = $row['empPassword'];
+        $confirmPassword = $row['confirmPassword'];
+        $profileImage = $row['profileImage'];
+        $phoneNumber = $row['phoneNumber'];
+        $gender = $row['gender'];
+        $hobby = explode(",", $row['hobby']);
+        $country = $row['country'];
     }
-
     ?>
+
     <form action="" method="POST">
         <div class="container mt-5 ">
             <h3 class="text-center">Update Form</h3>
@@ -86,32 +65,44 @@
             </div>
             <!-- Gender -->
             <div class="form-check pt-4">
-                <input class="form-check-input" type="radio" name="gender" value="female" id="gender">
+                <input class="form-check-input" type="radio" name="gender" value="female" id="gender"
+                    <?php
+
+                    if ($row['gender'] == "female") {
+                        echo "checked";
+                    }
+                    ?>>
                 <label class="form-check-label" for="flexRadioDefault1">
                     female
                 </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="gender" value="male" id="gender1">
+                <input class="form-check-input" type="radio" name="gender" value="male" id="gender1"
+                    <?php
+
+                    if ($row['gender'] == "male") {
+                        echo "checked";
+                    }
+                    ?>>
                 <label class="form-check-label" for="flexRadioDefault2">
                     male
                 </label>
             </div>
             <!-- Hobbby -->
             <div class="form-check pt-4">
-                <input class="form-check-input" type="checkbox" value="Cricket" id="cricket" name="hobby[]">
+                <input class="form-check-input" type="checkbox" id="cricket" name="hobby[]" value="Cricket" <?= in_array('Cricket', explode(',', $row['hobby'])) ? 'checked' : '' ?>>
                 <label class="form-check-label" for="flexCheckDefault">
                     Cricket
                 </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="Runnig" id="runnig" name="hobby[]">
+                <input class="form-check-input" type="checkbox" value="Runnig" <?= in_array('Runnig', explode(',', $row['hobby'])) ? 'checked' : '' ?> id="runnig" name="hobby[]">
                 <label class="form-check-label" for="flexCheckChecked">
                     Runnig
                 </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="Writing" id="writing" name="hobby[]">
+                <input class="form-check-input" type="checkbox" value="Writing" <?= in_array('Writing', explode(',', $row['hobby'])) ? 'checked' : '' ?> id="writing" name="hobby[]">
                 <label class="form-check-label" for="flexCheckDefault">
                     Writing
                 </label>
@@ -120,18 +111,50 @@
             <div class="dropdown pt-3 pb-4  ">
                 <label for="country">Choose a country:</label>
                 <select name="country" id="country">
-                    <option value="India">India</option>
-                    <option value="UK">Uk</option>
-                    <option value="Nepal">Nepal</option>
-                    <option value="Japan">Japan</option>
-                    <option value="Brazil">Brazil</option>
-                    <option value="Afganistan">Afganitan</option>
+                    <option value="option">Select</option>
+                    <option value="India"<?= ($row['country'] == 'India') ? 'selected' : '' ?>>India</option>
+                    <option value="UK"<?= ($row['country'] == 'UK') ? 'selected' : '' ?>>Uk</option>
+                    <option value="Nepal"<?= ($row['country'] == 'Nepal') ? 'selected' : '' ?>>Nepal</option>
+                    <option value="Japan"<?= ($row['country'] == 'Japan') ? 'selected' : '' ?>>Japan</option>
+                    <option value="Brazil"<?= ($row['country'] == 'Brazil') ? 'selected' : '' ?>>Brazil</option>
+                    <option value="Afganistan"<?= ($row['country'] == 'Afganistan') ? 'selected' : '' ?>>Afganitan</option>
                 </select>
             </div>
-            <button type="submit" name="submit" class="btn btn-success">Submit</button>
+            <button type="submit" name="update" class="btn btn-success">Update</button>
     </form>
     </div>
+    <?php
 
+
+    if (isset($_POST['update'])) {
+       $firstName = $_POST['firstName'];
+       $lastName = $_POST['lastName'];
+       $email = $_POST['email'];
+       $empPassword = $_POST['empPassword'];
+       $confirmPassword = $_POST['confirmPassword'];
+       $profileImage = $_POST['profileImage'];
+       $phoneNumber = $_POST['phoneNumber'];
+       $gender = $_POST['gender'];
+       $hobby = implode(",", $_POST['hobby']);
+       $country = $_POST['country'];
+
+        //update Query
+
+        $sql = "UPDATE `emp` SET firstName = '$firstName',lastName='$lastName',email='$email',empPassword='$empPassword',confirmPassword='$confirmPassword',profileImage='$profileImage',phoneNumber='$phoneNumber',gender='$gender',hobby='$hobby',country='$country' WHERE id = '$id'";
+        $result = mysqli_query($conn, $sql);
+        
+
+        if ($result) {
+            echo "Update Data successfully";
+              header("Location:/fetch.php"); 
+              
+        } else {
+            echo "Can not Update data";
+             
+        }
+    }
+
+    ?>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
