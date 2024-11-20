@@ -108,7 +108,6 @@ $success = false;
         $empPassword = $_POST['empPassword'];
         $confirmPassword = $_POST['confirmPassword'];
         $profileImage = $_FILES['profileImage']['name'];
-        // $profileImage = $_POST['profileImage'];
         $phoneNumber = $_POST['phoneNumber'];
         $gender = $_POST['gender'];
         $hobby = implode(",", $_POST['hobby']);
@@ -116,27 +115,79 @@ $success = false;
         $success = true;
 
         //Image uplod
-        // print_r($_FILES);
-        if ($_FILES['profileImage']) {
-            $upload_path = "uploads/";
-            $path = $upload_path.basename($_FILES['profileImage']['name']);
-            // $upload_path = "uploads/".$path;
 
-            //    echo $_FILES["profileImage"]["tmp_name"],$upload_path;
-            //    exit;
+        // if (isset($_FILES['profileImage'])) {
+        //     echo "<pre>";
+        //     print_r($_FILES);
+        //     echo "</pre>";
 
-            if (move_uploaded_file($_FILES["profileImage"]["tmp_name"], $path)) {
-                echo "File uploaded successfully!";
+        //    $target_dir = "upload/";
+        //    echo  $target_file = $target_dir . basename($_FILES['profileImage']['name']);
+
+        //     if (move_uploaded_file($_FILES['profileImage']['tmp_name'], $target_file))
+        //      {
+        //         echo "upload success";
+        //     } else {
+        //         echo "Sorry, file not uploaded, please try again!";
+        //     }
+        // }
+
+
+        //img upload
+        $target_dir = "upload/";
+        
+        $target_file = $target_dir . basename($_FILES["profileImage"]["name"]);
+        $uploadOk = 1;
+        $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+        
+
+        // Check if image file is a actual image or fake image
+        if (isset($_POST["submit"])) {
+            $check = getimagesize($_FILES["profileImage"]["tmp_name"]);
+            if ($check !== false) {
+                echo "File is an image - " . $check["mime"] . ".";
+                $uploadOk = 1;
             } else {
-                echo "Sorry, file not uploaded, please try again!";
+                echo "File is not an image.";
+                $uploadOk = 0;
             }
         }
-        // move_uploaded_file($_FILES['profileImage']['temp_name'],$upload_path);
-        // move_uploaded_file($_FILES['profileImage']['temp_name'],$upload_path)
-        // || die("not upload file");
 
-        // print_r($_FILES);
-        // exit;
+        // Check if file already exists
+        if (file_exists($target_file)) {
+            echo "Sorry, file already exists.";
+            $uploadOk = 0;
+        }
+
+        // Check file size
+        if ($_FILES["profileImage"]["size"] > 500000) {
+            echo "Sorry, your file is too large.";
+            $uploadOk = 0;
+        }
+
+        // Allow certain file formats
+        if (
+            $imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+            && $imageFileType != "gif"
+        ) {
+            echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+            $uploadOk = 0;
+        }
+        
+        // Check if $uploadOk is set to 0 by an error
+        if ($uploadOk == 0) {
+            echo "Sorry, your file was not uploaded.";
+            // if everything is ok, try to upload file
+        } else {
+            // echo $_FILES["profileImage"]["tmp_name"];echo "<br>";
+            // echo $target_file;
+            // exit;
+            if (move_uploaded_file($_FILES["profileImage"]["tmp_name"], $target_file)) {
+                echo "The file " . htmlspecialchars(basename($_FILES["profileImage"]["name"])) . " has been uploaded.";
+            } else {
+                echo "Sorry, there was an error uploading your file.";
+            }
+        }
 
 
         //insert sql query
@@ -145,7 +196,7 @@ $success = false;
         $result = mysqli_query($conn, $sql);
         if ($result) {
             // header("location: fetch.php");
-            // die();
+            // exit;
             if ($success) {
                 echo " <div class='alert alert-success alert-dismissible fade show' role=alert'>
                     <strong>Success!</strong> Your Data Inserted .

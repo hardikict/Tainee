@@ -241,3 +241,35 @@ print_r($_FILES);
 print "</pre>";
 
 ?>
+
+$profileImage = '';
+        if (isset($_FILES['profileImage']) && $_FILES['profileImage']['error'] == 0) {
+            $upload_dir = "uploads/"; 
+            $file_name = basename($_FILES['profileImage']['name']);
+            $file_path = $upload_dir . $file_name;
+
+            if (move_uploaded_file($_FILES['profileImage']['tmp_name'], $file_path)) {
+                $profileImage = $file_name; 
+                $success = true;
+            } else {
+                echo "Sorry, there was an error uploading your file.";
+            }
+        }
+
+
+        // if ($_FILES['profileImage']) {
+        // echo "<pre>";
+        // print_r($_FILES);
+        // echo "</pre>";
+
+
+        //     $upload_path = "uploads/";
+        //     $path = $upload_path.basename($_FILES['profileImage']['name']);
+        //     $upload_path = "uploads/".$path;
+
+        //     if (move_uploaded_file($_FILES["profileImage"]["tmp_name"], $path)) {
+        //         echo "File uploaded successfully!";
+        //     } else {
+        //         echo "Sorry, file not uploaded, please try again!";
+        //     }
+        // }
