@@ -15,13 +15,11 @@
 
     <?php
     include("./db_connect.php");
-
+ 
     //fetch data
     
     $sql = "SELECT * FROM `emp` ";
     $result = mysqli_query($conn, $sql);
-    // echo $result;
-    // exit;
 
     if ($result->num_rows > 0) {
         echo "<table>";

@@ -15,7 +15,7 @@
      //Get All Data 
     if (isset($_GET['id'])) {
         $id = $_GET['id'];
-        $sql = "SELECT * FROM `emp` WHERE id = '$id' ";
+        $sql = "SELECT * FROM `emp` WHERE id = '$id'";
         $result = mysqli_query($conn, $sql);
         $row = mysqli_fetch_assoc($result);
         
@@ -30,6 +30,8 @@
         $hobby = explode(",", $row['hobby']);
         $country = $row['country'];
     }
+
+    
     ?>
 
     <form action="" method="POST">
