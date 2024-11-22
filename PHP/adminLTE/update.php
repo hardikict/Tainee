@@ -108,7 +108,7 @@ if (isset($_GET['id'])) {
                 </div>
                 
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="Writing" <?= in_array('Writing', explode(',', $row['hobby'])) ? 'checked' : '' ?> id="writing" name="hobby[]">
+                    <input class="form-check-input" type="checkbox" value="Music" <?= in_array('Music', explode(',', $row['hobby'])) ? 'checked' : '' ?> id="writing" name="hobby[]">
                     <label class="form-check-label" for="flexCheckDefault">
                         Music
                     </label>

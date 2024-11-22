@@ -29,7 +29,7 @@
 
         <!-- insert here  -->
         <?php 
-        include("insert.php");
+        // include("insert.php");
          ?>
     </div>
 

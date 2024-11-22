@@ -10,34 +10,33 @@ include("sideMenu.php");
         <div class="card-header">
             <h3 class="card-title">InsertData</h3>
         </div>
-
         <form action="" method="POST" enctype="multipart/form-data">
             <div class="card-body">
                 <div class="form-group">
                     <label for="exampleInputEmail1">FirstName</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" name="firstName" placeholder="Enter firstname" require>
+                    <input type="text" class="form-control" id="exampleInputEmail1" name="firstName" placeholder="Enter firstname">
                 </div>
                 <div class="form-group">
                     <label for="exampleInputEmail1">LastName</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" name="lastName" placeholder="Enter lastname" require>
+                    <input type="text" class="form-control" id="exampleInputEmail1" name="lastName" placeholder="Enter lastname">
                 </div>
                 <div class="form-group">
                     <label for="exampleInputEmail1">Email address</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" name="email" placeholder="Enter email" require>
+                    <input type="email" class="form-control" id="exampleInputEmail1" name="email" placeholder="Enter email">
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Password</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1" name="password" placeholder="Enter Password" require>
+                    <input type="password" class="form-control" id="exampleInputPassword1" name="empPassword" placeholder="Enter Password">
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Confirm Password</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1" name="confirmPassword" placeholder="Enter Confirm Password" require>
+                    <input type="password" class="form-control" id="exampleInputPassword1" name="confirmPassword" placeholder="Enter Confirm Password">
                 </div>
                 <div class="form-group">
                     <label for="exampleInputFile">File input</label>
                     <div class="input-group">
                         <div class="custom-file">
-                            <input type="file" class="custom-file-input" name="profileImage" id="exampleInputFile" require>
+                            <input type="file" class="custom-file-input" name="profileImage" id="exampleInputFile">
                             <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                         </div>
                         <div class="input-group-append">
@@ -47,7 +46,7 @@ include("sideMenu.php");
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Mobile Number</label>
-                    <input type="text" class="form-control" id="exampleInputPassword1" name="mobileNumber" placeholder="Enter Mobile Number " require>
+                    <input type="text" class="form-control" id="exampleInputPassword1" name="mobileNumber" placeholder="Enter Mobile Number">
                 </div>
                 <!-- Gender -->
                 <div class="form-check pt-4">
@@ -77,7 +76,7 @@ include("sideMenu.php");
                 </div>
 
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="Writing" id="writing" name="hobby[]">
+                    <input class="form-check-input" type="checkbox" value="Music" id="Music" name="hobby[]">
                     <label class="form-check-label" for="flexCheckDefault">
                         Music
                     </label>
@@ -86,12 +85,12 @@ include("sideMenu.php");
                 <div class="dropdown pt-3 pb-4  ">
                     <label for="country">Choose a country:</label>
                     <select name="country" id="country">
-                        <option value="option">Select</option>
+                        <option>Select</option>
                         <option value="India">India</option>
-                        <option value="UK">New Zealand</option>
-                        <option value="Nepal">France</option>
+                        <option value="New Zealand">New Zealand</option>
+                        <option value="France">France</option>
                         <option value="Japan">Japan</option>
-                        <option value="Brazil">Austrelia</option>
+                        <option value="Austrelia">Austrelia</option>
 
                     </select>
                 </div>
@@ -103,67 +102,86 @@ include("sideMenu.php");
     </div>
 </div>
 <?php
-// include("footer.php");
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $id = $_POST['id'];
     $firstName = $_POST['firstName'];
     $lastName = $_POST['lastName'];
     $email = $_POST['email'];
-    $password = password_hash($_POST['empPassword'], PASSWORD_DEFAULT);
-    $confirmPassword = password_hash($_POST['confirmPassword'], PASSWORD_DEFAULT);
+    $password = $_POST['empPassword'];
+    $confirmPassword = $_POST['confirmPassword'];
+    // $password = password_hash($_POST['empPassword'], PASSWORD_DEFAULT);
+    // $confirmPassword = password_hash($_POST['confirmPassword'], PASSWORD_DEFAULT);
     $profileImage = $_FILES['profileImage']['name'];
     $mobileNumber = $_POST['mobileNumber'];
     $gender = $_POST['gender'];
     $hobby = implode(',', $_POST['hobby']);
     $country = $_POST['country'];
 
-
-    //img upload
-    $target_dir = "upload/";
-    $target_file = $target_dir . basename($_FILES["profileImage"]["name"]);
-    $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-
-    if (move_uploaded_file($_FILES["profileImage"]["tmp_name"], $target_file)) {
-        echo "The file " . htmlspecialchars(basename($_FILES["profileImage"]["name"])) . " has been uploaded.";
+    // Validate First Name.
+    if (empty($_POST['firstName'])) {
+        echo "<script> alert('Please enter your First Name!');</script>";
     } else {
-        // echo "Sorry, there was an error uploading your file.";
-    }
+        if (empty($_POST['lastName'])) {
+            echo "<script> alert('Please enter your last Name!');</script>";
+        } else {
+            //check email
+            $emailExist = "SELECT * FROM `emp_details` WHERE email = '$email'";
+            $result = mysqli_query($conn, $emailExist);
 
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                echo "<script> alert('Invalid Email Formet!');</script>";
+            } elseif (mysqli_num_rows($result) > 0) {
 
-    // $emailExist = "SELECT * FROM `emp_details` WHERE email = '$email'";
-    // $result = mysqli_query($conn, $sql);
+                echo "<script> alert('Email Already exist!');</script>";
+            } else {
+                if ($password !== $confirmPassword) {
+                    echo "<script> alert('Password Do Not Match!');</script>";
+                    // $hash=password_hash($_POST['empPassword'],PASSWORD_DEFAULT);
+                    // $hashconfirm=password_hash($_POST['confirmPassword'],PASSWORD_DEFAULT);
+                } else {
+                    //password lenth check
+                    if (!preg_match('/[^A-Za-z0-9]+/', $password) || strlen($password) < 8) {
+                        echo "<script> alert('Invalid Password Formet & please Less then 8 charecter!');</script>";
+                    } else {
+                        // Mobile Number Validation
+                        if (empty($mobileNumber)) {
+                            echo "<script> alert('Mobil number is Required!');</script>";
+                        } elseif (!preg_match("/^[0-9]{10}$/", $mobileNumber)) {
 
-    // if ($row->num_rows > 0) {
-    //     echo "Please! Already Use Email";
-    //     exit;
-    // }
+                            echo "<script> alert('Only 10 digit number is allowed!');</script>";
+                        } else {
+                            //Radio Button Validation
+                            if (!isset($_POST['gender']) || empty($_POST['gender'])) {
+                                echo "<script> alert('Gender Selection Required');</script>";
+                            } else {
+                                // Checkbox validation
+                                // if (empty($_POST['hobby[]']))
+                                // echo "<script> alert('Must Selected Hobby !');</script>";
 
-    // if ($password !== $confirmPassword) {
-    //     echo "Password Do Not Match ";
-    // }else{
-    //     echo "Match Password";
-    // }
-    // if ($_POST["empPassword"] === $_POST["confirmPassword"]) 
-    // {
-    //     echo "Password Match ";
+                                // if (!empty($_POST['hobby[]'])) {
+                                //     echo "<script> alert('Must Selected Hobby !');</script>";
+                                // }
+                                //  else
+                                {
+                                    //Dropdown check 
+                                    // if (!isset($_POST['country']) && $_POST['country'] != '') {
+                                    //     echo "<script> alert('Please select a country!');</script>";
+                                    // } 
+                                    // else {
+                                    $sql = "INSERT INTO `emp_details` (firstName, lastName, email,empPassword, confirmPassword, profileImage, mobileNumber, gender, hobby,country) VALUES ('$firstName', '$lastName','$email', '$password', '$confirmPassword', '$profileImage', '$mobileNumber', '$gender', '$hobby', '$country');";
+                                    $result = mysqli_query($conn, $sql);
 
-    // } else 
-    // { 
-    //     echo "Password Do Not Match ";
-       
-    // }
-   
-
-    $sql = "INSERT INTO `emp_details` (firstName, lastName, email,empPassword, confirmPassword, profileImage, mobileNumber, gender, hobby,country) VALUES
-    ('$firstName', '$lastName','$email', '$password', '$confirmPassword', '$profileImage', '$mobileNumber', '$gender', '$hobby', '$country');";
-    $result = mysqli_query($conn, $sql);
-
-    if ($result) {
-        echo "Success! Data Inserted";
-    } else {
-        echo "Error! Data not Inserted";
+                                    echo "<script> alert('Your Registion Successfull!');</script>";
+                                    // }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }
- include("footer.php");
 ?>
+<?php include("footer.php"); ?>
