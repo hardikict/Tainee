@@ -1,11 +1,43 @@
 <?php
+//Restriction
+session_start();
+if(isset($_SESSION['login'])){
+    header("Location:login.php");
+    // die();
+}
+
 include("db_connect.php");
 include("heder.php");
 include("sideMenu.php");
-
+    
+//logout
+if (!empty(($_SESSION['id']))) {
+    $id = $_SESSION['id'];
+    $sql = "SELECT * FROM `registration` WHERE id = '$id'";
+    $result = mysqli_query($conn, $sql);
+    $row = mysqli_fetch_assoc($result);
+}
+// else{
+//     header("location: login.php");
+// }
 
 ?>
 <div class="container">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Crud Operation </h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Starter Page</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="card card-primary">
         <div class="card-header">
             <h3 class="card-title">InsertData</h3>
@@ -102,6 +134,7 @@ include("sideMenu.php");
     </div>
 </div>
 <?php
+
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $id = $_POST['id'];

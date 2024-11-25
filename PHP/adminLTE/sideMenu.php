@@ -1,3 +1,8 @@
+<?php 
+include("db_connect.php");
+session_start();
+?>
+
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
@@ -15,7 +20,16 @@
                         <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">Alexander Pierce</a>
+                        <?php 
+                             $userName = $_SESSION['userName'];
+                        
+                        
+                        ?>
+            
+                        <!-- <a href="#" class="d-block">Alexander Pierce</a> -->
+                        <?php 
+                        // echo $row['name'];
+                         ?>
                     </div>
                 </div>
 
@@ -37,13 +51,19 @@
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                         data-accordion="false">
                         <li class="nav-item menu-open">
-                            <a href="insert.php" class="nav-link ">
+                            <a href="dashboard.php" class="nav-link ">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
-                                <p> Insert Page</p>
+                                <p>Dashboard</p>
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="listData.php" class="nav-link ">
+                                    <a href="insert.php" class="nav-link ">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Insert Page</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="listData.php" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>ListData Page</p>
                                     </a>
@@ -56,6 +76,8 @@
                                 </li>
                             </ul>
                         </li>
+
+                        <!-- <button class="bg-dark text-light"><a href="logout.php">Logout</a> </button> -->
                         <!-- <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-th"></i>
@@ -75,7 +97,7 @@
          <!-- Content Wrapper. Contains page content -->
          <div class="content-wrapper">
             <!-- Content Header (Page header) -->
-            <div class="content-header">
+            <!-- <div class="content-header">
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
@@ -89,4 +111,4 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->

@@ -1,8 +1,16 @@
 <?php
+//Restriction
+session_start();
+if(isset($_SESSION['login']) || $_SESSION['id'] == ''){
+    header("Location:login.php");
+    die();
+}
+
+
+
 include("db_connect.php");
-$alert = false;
 
-
+//Get data
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
     $sql = "SELECT * FROM `emp_details` WHERE id ='$id' ";
@@ -28,6 +36,21 @@ if (isset($_GET['id'])) {
 
 <!-- update here  -->
 <div class="container">
+<div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Crud Operation </h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Starter Page</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="card card-secondary">
         <div class="card-header">
             <h3 class="card-title">Update Data</h3>
@@ -136,7 +159,7 @@ if (isset($_GET['id'])) {
 <?php
 include("footer.php");
 
-
+//update data 
 if (isset($_POST['update'])) {
 
     $firstName = $_POST['firstName'];
@@ -158,13 +181,7 @@ if (isset($_POST['update'])) {
     if ($result) {
         // echo "Success! Data Updated";
         header('loaction: listData.php');
-        // if($alert)
-        // {
-        //     echo'<div class="alert alert-success alert-dismissible fade show" role="alert">
-        //         <strong>Suceess!</strong> Your Data Inserted.
-        //         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        //         </div>';
-        // }
+       
     } else {
         echo "Error! Data not Updated";
     }
