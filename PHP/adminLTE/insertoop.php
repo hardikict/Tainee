@@ -1,35 +1,17 @@
 <?php
+include "heder.php";
+include "sideMenu.php";
+include "function.php";
 
-session_start();
-//Restriction
-// if(isset($_SESSION['login'])){
-//     header("Location:login.php");
-//     die();
-// }
-// if (!isset($_SESSION['id'])) {
-//     header("Location: login.php");
-//     exit();
-// }
-
-//Restriction
-// if(!isset($_SESSION['id'])|| $_SESSION['login'] !== true ){
-//     header("Location:login.php");
-//     // header("Location:dashboard.php");
-//     exit;
-// }
-
-include("db_connect.php");
-include("heder.php");
-include("sideMenu.php");
-    
 
 ?>
+
 <div class="container">
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Crud Operation </h1>
+                    <h1 class="m-0">Crud Operation Using OOP's </h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -40,7 +22,7 @@ include("sideMenu.php");
             </div>
         </div>
     </div>
-    <div class="card card-primary">
+    <div class="card card-success">
         <div class="card-header">
             <h3 class="card-title">InsertData</h3>
         </div>
@@ -130,93 +112,44 @@ include("sideMenu.php");
                 </div>
             </div>
             <div class="card-footer">
-                <button type="submit" name="submit" class="btn btn-success">Submit</button>
+                <button type="submit" name="submit" value="submit" class="btn btn-success">Submit</button>
             </div>
         </form>
     </div>
 </div>
+
+
 <?php
+//footer file include
+include "footer.php"; 
 
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $id = $_POST['id'];
+$insertdata = new employee();
+if (isset($_POST['submit'])) {
     $firstName = $_POST['firstName'];
     $lastName = $_POST['lastName'];
     $email = $_POST['email'];
-    $password = $_POST['empPassword'];
+    $empPassword = $_POST['empPassword'];
     $confirmPassword = $_POST['confirmPassword'];
-    // $password = password_hash($_POST['empPassword'], PASSWORD_DEFAULT);
-    // $confirmPassword = password_hash($_POST['confirmPassword'], PASSWORD_DEFAULT);
-    $profileImage = $_FILES['profileImage']['name'];
+    $profileImage = $_POST['profileImage'];
     $mobileNumber = $_POST['mobileNumber'];
     $gender = $_POST['gender'];
-    $hobby = implode(',', $_POST['hobby']);
+    $hobby = implode(',',$_POST['hobby']);
     $country = $_POST['country'];
 
-    // Validate First Name.
-    if (empty($_POST['firstName'])) {
-        echo "<script> alert('Please enter your First Name!');</script>";
-    } else {
-        if (empty($_POST['lastName'])) {
-            echo "<script> alert('Please enter your last Name!');</script>";
-        } else {
-            //check email
-            $emailExist = "SELECT * FROM `emp_details` WHERE email = '$email'";
-            $result = mysqli_query($conn, $emailExist);
-
-            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                echo "<script> alert('Invalid Email Formet!');</script>";
-            } elseif (mysqli_num_rows($result) > 0) {
-
-                echo "<script> alert('Email Already exist!');</script>";
-            } else {
-                if ($password !== $confirmPassword) {
-                    echo "<script> alert('Password Do Not Match!');</script>";
-                    // $hash=password_hash($_POST['empPassword'],PASSWORD_DEFAULT);
-                    // $hashconfirm=password_hash($_POST['confirmPassword'],PASSWORD_DEFAULT);
-                } else {
-                    //password lenth check
-                    if (!preg_match('/[^A-Za-z0-9]+/', $password) || strlen($password) < 8) {
-                        echo "<script> alert('Invalid Password Formet & please Less then 8 charecter!');</script>";
-                    } else {
-                        // Mobile Number Validation
-                        if (empty($mobileNumber)) {
-                            echo "<script> alert('Mobil number is Required!');</script>";
-                        } elseif (!preg_match("/^[0-9]{10}$/", $mobileNumber)) {
-
-                            echo "<script> alert('Only 10 digit number is allowed!');</script>";
-                        } else {
-                            //Radio Button Validation
-                            if (!isset($_POST['gender']) || empty($_POST['gender'])) {
-                                echo "<script> alert('Gender Selection Required');</script>";
-                            } else {
-                                // Checkbox validation
-                                // if (empty($_POST['hobby[]']))
-                                // echo "<script> alert('Must Selected Hobby !');</script>";
-
-                                // if (!empty($_POST['hobby[]'])) {
-                                //     echo "<script> alert('Must Selected Hobby !');</script>";
-                                // }
-                                //  else
-                                {
-                                    //Dropdown check 
-                                    // if (!isset($_POST['country']) && $_POST['country'] != '') {
-                                    //     echo "<script> alert('Please select a country!');</script>";
-                                    // } 
-                                    // else {
-                                    $sql = "INSERT INTO `emp_details` (firstName, lastName, email,empPassword, confirmPassword, profileImage, mobileNumber, gender, hobby,country) VALUES ('$firstName', '$lastName','$email', '$password', '$confirmPassword', '$profileImage', '$mobileNumber', '$gender', '$hobby', '$country');";
-                                    $result = mysqli_query($conn, $sql);
-
-                                    echo "<script> alert('Your Registion Successfull!');</script>";
-                                    // }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
+     $sql = $insertdata->insert($firstName, $lastName, $email, $empPassword, $confirmPassword, $profileImage, $mobileNumber, $gender, $hobby, $country);
+     if ($sql) {
+        echo "<script>alert('Record Insert Successfully')</script>";
+    }else{
+        echo "<script>alert('Record Not Insert')</script>";
     }
 }
+
+
+
+
 ?>
-<?php include("footer.php"); ?>
+
+
+
+
+

@@ -9,8 +9,6 @@
 </head>
 
 <body>
-
-
     <div class="container pt-5 mt-5 w-50 ">
 
         <form action="" method="POST">
@@ -29,13 +27,11 @@
 
         </form>
     </div>
-<?php 
 
-?>
     <?php
+     session_start(); 
     include("db_connect.php");
-    session_start();
-
+   
     if (isset($_POST['login']))
      {
         $userName = $_POST['userName'];
@@ -43,12 +39,21 @@
         $sql = "SELECT * FROM `registration` WHERE `userName` = '$userName' AND `password` = '$password'";
         $result = mysqli_query($conn, $sql);
         $row = mysqli_fetch_assoc($result);
+        // print_r($row);
+        // exit;
+        // print_r($userName == $row['userName']);
+        // exit;
         if (mysqli_num_rows($result) > 0) {
-            if ($password == $row['password']) {
+            if ($password == $row['password'] && $userName == $row['userName']) {
                 $_SESSION['login'] = true;
                 $_SESSION['id'] = $row['id'];
-                echo $_SESSION['userName'] = $row['userName'];
+                $_SESSION['userName']= $row['userName'];
+                // echo $userName;
+                // print_r($_SESSION['userName']);
+                // exit;
                 header("location:insert.php");
+                // header("location:dashboard.php");
+
             } else {
                 echo "<script> alert('Worng Password!');</script>";
             }
@@ -64,3 +69,5 @@
 </body>
 
 </html>
+
+

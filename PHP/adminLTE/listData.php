@@ -1,17 +1,20 @@
 <?php
-//Restriction
 session_start();
-if(isset($_SESSION['login']) || $_SESSION['id'] == ''){
-    header("Location:login.php");
-    die();
-}
-
-
-
 include("db_connect.php");
 include("heder.php");
 include("sideMenu.php");
 
+//Restriction
+// if(isset($_SESSION['login']) || $_SESSION['id'] == ''){
+//     header("Location:login.php");
+//     die();
+// }
+
+//Restriction
+// if(!isset($_SESSION['id']) ){
+//   header("Location:login.php");
+//   die();
+// }
 
 ?>
 <div class="content-header">
