@@ -52,7 +52,7 @@ include "function.php";
                     <label for="exampleInputFile">File input</label>
                     <div class="input-group">
                         <div class="custom-file">
-                            <input type="file" class="custom-file-input" name="profileImage" id="exampleInputFile">
+                            <input type="file" class="custom-file-input" name="profileImage" id="profileImage">
                             <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                         </div>
                         <div class="input-group-append">
@@ -121,7 +121,7 @@ include "function.php";
 
 <?php
 //footer file include
-include "footer.php"; 
+include "footer.php";
 
 $insertdata = new employee();
 if (isset($_POST['submit'])) {
@@ -133,23 +133,16 @@ if (isset($_POST['submit'])) {
     $profileImage = $_POST['profileImage'];
     $mobileNumber = $_POST['mobileNumber'];
     $gender = $_POST['gender'];
-    $hobby = implode(',',$_POST['hobby']);
+    $hobby = implode(',', $_POST['hobby']);
     $country = $_POST['country'];
 
-     $sql = $insertdata->insert($firstName, $lastName, $email, $empPassword, $confirmPassword, $profileImage, $mobileNumber, $gender, $hobby, $country);
-     if ($sql) {
+    //function call
+    $sql = $insertdata->insert($firstName, $lastName, $email, $empPassword, $confirmPassword, $profileImage, $mobileNumber, $gender, $hobby, $country);
+    if ($sql) {
         echo "<script>alert('Record Insert Successfully')</script>";
-    }else{
+    } else {
         echo "<script>alert('Record Not Insert')</script>";
     }
 }
 
-
-
-
 ?>
-
-
-
-
-
