@@ -21,7 +21,7 @@ session_start();
 include("db_connect.php");
 include("heder.php");
 include("sideMenu.php");
-    
+
 
 ?>
 <div class="container">
@@ -153,17 +153,38 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $hobby = implode(',', $_POST['hobby']);
     $country = $_POST['country'];
 
-    // Validate First Name.
+    // Image Upload
+    if (isset($_POST['submit'])) {
+        echo "<pre>";
+        print_r($_FILES);
+        echo "</pre>";
+
+        $target_dir = "uploads/";
+        $target_file = $target_dir . basename($_FILES['profileImage']['name']);
+        if (move_uploaded_file($_FILES['profileImage']['tmp_name'], $target_file))
+        {
+            echo "<script>alert('Success! File Uploaded')</script>";
+        }   
+        else
+        {
+            echo "OOP's! File not uploaded, please try again!";
+            // echo "<script>alert('OOP's! File not uploaded, please try again!')</script>";
+        }
+    }
+
+    // Validation FirstName Required.
     if (empty($_POST['firstName'])) {
         echo "<script> alert('Please enter your First Name!');</script>";
     } else {
+        // Required LastName.
         if (empty($_POST['lastName'])) {
             echo "<script> alert('Please enter your last Name!');</script>";
         } else {
-            //check email
+            //check email Exist
             $emailExist = "SELECT * FROM `emp_details` WHERE email = '$email'";
             $result = mysqli_query($conn, $emailExist);
 
+            // Email Formet Check
             if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 echo "<script> alert('Invalid Email Formet!');</script>";
             } elseif (mysqli_num_rows($result) > 0) {
@@ -172,6 +193,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             } else {
                 if ($password !== $confirmPassword) {
                     echo "<script> alert('Password Do Not Match!');</script>";
+                
                     // $hash=password_hash($_POST['empPassword'],PASSWORD_DEFAULT);
                     // $hashconfirm=password_hash($_POST['confirmPassword'],PASSWORD_DEFAULT);
                 } else {
@@ -181,7 +203,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     } else {
                         // Mobile Number Validation
                         if (empty($mobileNumber)) {
-                            echo "<script> alert('Mobil number is Required!');</script>";
+                            echo "<script> alert('Mobile number is Required!');</script>";
                         } elseif (!preg_match("/^[0-9]{10}$/", $mobileNumber)) {
 
                             echo "<script> alert('Only 10 digit number is allowed!');</script>";
@@ -190,26 +212,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             if (!isset($_POST['gender']) || empty($_POST['gender'])) {
                                 echo "<script> alert('Gender Selection Required');</script>";
                             } else {
-                                // Checkbox validation
-                                // if (empty($_POST['hobby[]']))
-                                // echo "<script> alert('Must Selected Hobby !');</script>";
+                                // Data Insert Query
+                                $sql = "INSERT INTO `emp_details` (firstName, lastName, email,empPassword, confirmPassword, profileImage, mobileNumber, gender, hobby,country) VALUES ('$firstName', '$lastName','$email', '$password', '$confirmPassword', '$profileImage', '$mobileNumber', '$gender', '$hobby', '$country');";
+                                $result = mysqli_query($conn, $sql);
 
-                                // if (!empty($_POST['hobby[]'])) {
-                                //     echo "<script> alert('Must Selected Hobby !');</script>";
-                                // }
-                                //  else
-                                {
-                                    //Dropdown check 
-                                    // if (!isset($_POST['country']) && $_POST['country'] != '') {
-                                    //     echo "<script> alert('Please select a country!');</script>";
-                                    // } 
-                                    // else {
-                                    $sql = "INSERT INTO `emp_details` (firstName, lastName, email,empPassword, confirmPassword, profileImage, mobileNumber, gender, hobby,country) VALUES ('$firstName', '$lastName','$email', '$password', '$confirmPassword', '$profileImage', '$mobileNumber', '$gender', '$hobby', '$country');";
-                                    $result = mysqli_query($conn, $sql);
-
-                                    echo "<script> alert('Your Registion Successfull!');</script>";
-                                    // }
-                                }
+                                echo "<script> alert('Your Registion Successfull!');</script>";
                             }
                         }
                     }

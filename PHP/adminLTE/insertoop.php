@@ -136,13 +136,58 @@ if (isset($_POST['submit'])) {
     $hobby = implode(',', $_POST['hobby']);
     $country = $_POST['country'];
 
-    //function call
-    $sql = $insertdata->insert($firstName, $lastName, $email, $empPassword, $confirmPassword, $profileImage, $mobileNumber, $gender, $hobby, $country);
-    if ($sql) {
-        echo "<script>alert('Record Insert Successfully')</script>";
+
+ // Validation Required FirstName.
+ if (empty($_POST['firstName'])) {
+    echo "<script> alert('Please enter your First Name!');</script>";
+} else {
+    // Required LastName.
+    if (empty($_POST['lastName'])) {
+        echo "<script> alert('Please enter your last Name!');</script>";
     } else {
-        echo "<script>alert('Record Not Insert')</script>";
+        //check email Exist
+        $emailExist = "SELECT * FROM `emp_details` WHERE email = '$email'";
+        $result = mysqli_query($conn, $emailExist);
+
+        // Email Formet Check
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            echo "<script> alert('Invalid Email Formet!');</script>";
+        } elseif (mysqli_num_rows($result) > 0) {
+
+            echo "<script> alert('Email Already exist!');</script>";
+        } else {
+            if ($empPassword !== $confirmPassword) {
+                echo "<script> alert('Password Do Not Match!');</script>";
+                // $hash=password_hash($_POST['empPassword'],PASSWORD_DEFAULT);
+                // $hashconfirm=password_hash($_POST['confirmPassword'],PASSWORD_DEFAULT);
+            } else {
+                //password lenth check
+                if (!preg_match('/[^A-Za-z0-9]+/', $empPassword) || strlen($empPassword) < 8) {
+                    echo "<script> alert('Invalid Password Formet & please Less then 8 charecter!');</script>";
+                } else {
+                    // Mobile Number Validation
+                    if (empty($mobileNumber)) {
+                        echo "<script> alert('Mobile number is Required!');</script>";
+                    } elseif (!preg_match("/^[0-9]{10}$/", $mobileNumber)) {
+
+                        echo "<script> alert('Only 10 digit number is allowed!');</script>";
+                    } else {
+                        //Radio Button Validation
+                        if (!isset($_POST['gender']) || empty($_POST['gender'])) {
+                            echo "<script> alert('Gender Selection Required');</script>";
+                        } else {
+                            // Function Call
+                            $sql = $insertdata->insert($firstName, $lastName, $email, $empPassword, $confirmPassword, $profileImage, $mobileNumber, $gender, $hobby, $country);
+                            echo "<script> alert('Your Registion Successfull!');</script>";
+                        }
+                    }
+                }
+            }
+        }
     }
+}
+
+
 }
 
 ?>
