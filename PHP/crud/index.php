@@ -1,6 +1,4 @@
 <?php include("db_connect.php");
-$success = false;
-
 ?>
 
 <!DOCTYPE html>
@@ -111,79 +109,30 @@ $success = false;
         $phoneNumber = $_POST['phoneNumber'];
         $gender = $_POST['gender'];
         $hobby = implode(",", $_POST['hobby']);
-        $country = $_POST['country'];
-        $success = true;
+        $country = $_POST['country'];        
 
         //Image uplod
-
-        // if (isset($_FILES['profileImage'])) {
-        //     echo "<pre>";
-        //     print_r($_FILES);
-        //     echo "</pre>";
-
-        //    $target_dir = "upload/";
-        //    echo  $target_file = $target_dir . basename($_FILES['profileImage']['name']);
-
-        //     if (move_uploaded_file($_FILES['profileImage']['tmp_name'], $target_file))
-        //      {
-        //         echo "upload success";
-        //     } else {
-        //         echo "Sorry, file not uploaded, please try again!";
-        //     }
-        // }
-
-
-        // //img upload
-        // $target_dir = "upload/";
-        
-        // $target_file = $target_dir . basename($_FILES["profileImage"]["name"]);
-        // $uploadOk = 1;
-        // $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-        
-
-        // // Check if image file is a actual image or fake image
-        // if (isset($_POST["submit"])) {
-        //     $check = getimagesize($_FILES["profileImage"]["tmp_name"]);
-        //     if ($check !== false) {
-        //         echo "File is an image - " . $check["mime"] . ".";
-        //         $uploadOk = 1;
-        //     } else {
-        //         echo "File is not an image.";
-        //         $uploadOk = 0;
-        //     }
-        // }
-
-        //     move_uploaded_file($_FILES["profileImage"]["tmp_name"], $target_file);
-
-        // $target_dir = "uploads/";
-        // $target_file = $target_dir . basename($_FILES["profileImage"]["name"]);
-        // print_r($target_file); 
-        // $uploadOk = 1;
-        // $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-        
-        // $check = getimagesize($_FILES["profileImage"]["tmp_name"]);
-
-
-        // if($check){
-        //     move_uploaded_file($_FILES["profileImage"]["tmp_name"], $target_file);
-        // }
-        
-
+        if (isset($_FILES['profileImage'])) {
+          
+           $target_dir = "upload/";
+           $target_file = $target_dir . basename($_FILES['profileImage']['name']);
+            if (move_uploaded_file($_FILES['profileImage']['tmp_name'], $target_file))
+             {
+                echo "<script>alert('Success! Your Uploaded File.')</script>";
+            } else {
+                echo "";
+                echo "<script>alert('Error! file not uploaded, please try again!')</script>";
+            }
+        }
         //insert sql query
         $sql = "INSERT INTO `emp` (firstName, lastName, email, empPassword, confirmPassword, profileImage, phoneNumber, gender, hobby, country) VALUES 
         ('$firstName', '$lastName', '$email', '$empPassword', '$confirmPassword', '$profileImage', '$phoneNumber', '$gender','$hobby','$country')";
         $result = mysqli_query($conn, $sql);
         if ($result) {
-            // header("location: fetch.php");
-            // exit;
-            if ($success) {
-                echo " <div class='alert alert-success alert-dismissible fade show' role=alert'>
-                    <strong>Success!</strong> Your Data Inserted .
-                    <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
-                    </div>";
-            }
+            echo "<script>alert('Success! Your Data Inserted.')</script>";
         } else {
-            echo "can not insert data";
+
+            echo "<script>alert('Error! Can not insert data.')</script>";
         }
     }
 

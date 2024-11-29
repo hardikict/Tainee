@@ -56,3 +56,11 @@ echo "<h1>Welcome, " . $row['name'] . "</h1>";
 // else{
 //     header("location: login.php");
 // }
+
+
+
+
+//  echo '<td> <img src="upload/jpeg;base64,'.base64_encode($row['profilImage'] ).'" height="20" width="200" class="img-thumnail" /></td>';
+                  // echo '<td> <img src="upload/', $row['profilImage'], '" /></td>';
+                  // echo "<td> <img src='upload/style/" .  $profilImage['profilImage']. "'/>    </td>";
+                //  echo '<td><img src="upload/' . $row['profilImage']. '" alt="image" ,width=10px, height=10px /></td>';

@@ -69,12 +69,15 @@ include("sideMenu.php");
                 echo "<tr>";
                 echo "</thead>";
                 while ($row = mysqli_fetch_assoc($result)) {
+
                   echo "<td>" . $row['id'] . "</td>";
                   echo "<td>" . $row['firstName'] . "</td>";
                   echo "<td>" . $row['lastName'] . "</td>";
                   echo "<td>" . $row['email'] . "</td>";
                   echo "<td>" . password_hash($row['password'], PASSWORD_DEFAULT) . "</td>";
                   echo "<td>" . password_hash($row['confirmPassword'], PASSWORD_DEFAULT) . "</td>";
+
+                   echo '<td> <img src="upload/', $row['profilImage'], '" /></td>';
                   echo "<td>" . $row['profileImage'] . "</td>";
                   echo "<td>" . $row['mobileNumber'] . "</td>";
                   echo "<td>" . $row['gender'] . "</td>";
@@ -87,7 +90,10 @@ include("sideMenu.php");
                   echo "</tr>";
                 }
                 echo " </table>";
+        
               }
+        
+              // <!-- //<img src="data:image/jpeg;base64,'.base64_encode($row['name'] ).'" height="200" width="200" class="img-thumnail" /> -->
          
               ?>
             </div>

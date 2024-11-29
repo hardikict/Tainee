@@ -70,8 +70,9 @@ include("sideMenu.php");
                     <label for="exampleInputFile">File input</label>
                     <div class="input-group">
                         <div class="custom-file">
-                            <input type="file" class="custom-file-input" name="profileImage" id="exampleInputFile">
+                            <input type="file" class="custom-file-input" name="profileImage" id="profileImage">
                             <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                      
                         </div>
                         <div class="input-group-append">
                             <span class="input-group-text">Upload</span>
@@ -143,7 +144,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $firstName = $_POST['firstName'];
     $lastName = $_POST['lastName'];
     $email = $_POST['email'];
-    $password = $_POST['empPassword'];
+    $empPassword = $_POST['empPassword'];
     $confirmPassword = $_POST['confirmPassword'];
     // $password = password_hash($_POST['empPassword'], PASSWORD_DEFAULT);
     // $confirmPassword = password_hash($_POST['confirmPassword'], PASSWORD_DEFAULT);
@@ -154,21 +155,54 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $country = $_POST['country'];
 
     // Image Upload
-    if (isset($_POST['submit'])) {
-        echo "<pre>";
-        print_r($_FILES);
-        echo "</pre>";
 
-        $target_dir = "uploads/";
-        $target_file = $target_dir . basename($_FILES['profileImage']['name']);
-        if (move_uploaded_file($_FILES['profileImage']['tmp_name'], $target_file))
-        {
-            echo "<script>alert('Success! File Uploaded')</script>";
-        }   
-        else
-        {
-            echo "OOP's! File not uploaded, please try again!";
-            // echo "<script>alert('OOP's! File not uploaded, please try again!')</script>";
+    $target_dir = "upload/";
+    $target_file = $target_dir . basename($_FILES["profileImage"]["name"]);
+    $uploadOk = 1;
+    echo $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+
+    // Check if image file is a actual image or fake image
+    if (isset($_POST["submit"])) {
+        $check = getimagesize($_FILES["profileImage"]["tmp_name"]);
+        if ($check !== false) {
+            echo "File is an image - " . $check["mime"] . ".";
+            $uploadOk = 1;
+        } else {
+            echo "File is not an image.";
+            $uploadOk = 0;
+        }
+    }
+
+    // Check if file already exists
+    if (file_exists($target_file)) {
+        echo "Sorry, file already exists.";
+        $uploadOk = 0;
+    }
+
+    // Check file size
+    if ($_FILES["fileToUpload"]["size"] > 500000) {
+        echo "Sorry, your file is too large.";
+        $uploadOk = 0;
+    }
+
+    // Allow certain file formats
+    if (
+        $imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+        && $imageFileType != "gif"
+    ) {
+        echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+        $uploadOk = 0;
+    }
+
+    // Check if $uploadOk is set to 0 by an error
+    if ($uploadOk == 0) {
+        echo "Sorry, your file was not uploaded.";
+        // if everything is ok, try to upload file
+    } else {
+        if (move_uploaded_file($_FILES["profileImage"]["tmp_name"], $target_file)) {
+         echo "Success! uploading your file.";
+        } else {
+            echo "Sorry, there was an error uploading your file.";
         }
     }
 
@@ -191,14 +225,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                 echo "<script> alert('Email Already exist!');</script>";
             } else {
-                if ($password !== $confirmPassword) {
+                if ($empPassword !== $confirmPassword) {
                     echo "<script> alert('Password Do Not Match!');</script>";
-                
-                    // $hash=password_hash($_POST['empPassword'],PASSWORD_DEFAULT);
-                    // $hashconfirm=password_hash($_POST['confirmPassword'],PASSWORD_DEFAULT);
                 } else {
+                    // $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+                    // $hashedConfirmPassword = password_hash($confirmPassword, PASSWORD_DEFAULT);
+
                     //password lenth check
-                    if (!preg_match('/[^A-Za-z0-9]+/', $password) || strlen($password) < 8) {
+                    if (!preg_match('/[^A-Za-z0-9]+/', $empPassword) || strlen($empPassword) < 8) {
                         echo "<script> alert('Invalid Password Formet & please Less then 8 charecter!');</script>";
                     } else {
                         // Mobile Number Validation
@@ -212,9 +246,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             if (!isset($_POST['gender']) || empty($_POST['gender'])) {
                                 echo "<script> alert('Gender Selection Required');</script>";
                             } else {
-                                // Data Insert Query
-                                $sql = "INSERT INTO `emp_details` (firstName, lastName, email,empPassword, confirmPassword, profileImage, mobileNumber, gender, hobby,country) VALUES ('$firstName', '$lastName','$email', '$password', '$confirmPassword', '$profileImage', '$mobileNumber', '$gender', '$hobby', '$country');";
+                                // Hashing the password
+                                //  $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+                                //  $hashedConfirmPassword = password_hash($confirmPassword, PASSWORD_DEFAULT);
+
+                                $sql = "INSERT INTO `emp_details` (firstName, lastName, email, empPassword, confirmPassword, profileImage, mobileNumber, gender, hobby, country) 
+                                        VALUES ('$firstName', '$lastName', '$email', '$empPassword', '$confirmPassword', '$profileImage', '$mobileNumber', '$gender', '$hobby', '$country');";
                                 $result = mysqli_query($conn, $sql);
+
 
                                 echo "<script> alert('Your Registion Successfull!');</script>";
                             }

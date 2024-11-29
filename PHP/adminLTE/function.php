@@ -60,3 +60,24 @@ class employee
 // call database
 // $data = new employee();
 
+class upload{
+    public $src = "upload/";
+    public $tmp;
+    public $filename;
+    public $type;
+    public $uploadfile;
+
+    public function startupload(){
+        $this -> filename = $_FILES["profileImage"]["name"];
+        $this -> tmp = $_FILES["profileImage"]["tmp_name"];
+        $this -> uploadfile = $this -> src . basename($this -> filename);
+    }
+    public function uploadfile(){
+       
+            if(move_uploaded_file($this -> tmp, $this -> uploadfile)){
+            return true;
+        }
+    }
+
+
+}

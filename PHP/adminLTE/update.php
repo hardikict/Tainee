@@ -80,7 +80,7 @@ if (isset($_GET['id'])) {
                     <label for="exampleInputFile">File input</label>
                     <div class="input-group">
                         <div class="custom-file">
-                            <input type="file" class="custom-file-input" name="profileImage" id="exampleInputFile" require>
+                            <input type="file" class="custom-file-input"value="<?php echo $row['profileImage']; ?>" name="profileImage" id="exampleInputFile" require>
                             <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                         </div>
                         <div class="input-group-append">
