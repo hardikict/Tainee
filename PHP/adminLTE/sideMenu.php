@@ -95,6 +95,18 @@ session_start();
                                         <p>ListData OOP's </p>
                                     </a>
                                 </li>
+                                <li class="nav-item">
+                                    <a href="insertAjax.php" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>InsertAjax </p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="listdataAjax.php" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>ListData Ajax </p>
+                                    </a>
+                                </li>
                             </ul>
                         </li>
 

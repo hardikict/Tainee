@@ -178,7 +178,7 @@ if (isset($_POST['update'])) {
     $result = mysqli_query($conn, $sql);
 
     if ($result) {
-        // echo "Success! Data Updated";
+        echo "Success! Data Updated";
         header('loaction: listData.php');
        
     } else {

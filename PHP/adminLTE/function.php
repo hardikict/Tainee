@@ -8,6 +8,8 @@ class employee
     {
 
         $this->conn = new mysqli("localhost", "root", "admin123", "employee");
+        // $this->conn = new mysqli("localhost", "root", "", "employee");
+
         if ($this->conn->connect_error) {
             die("Connection failed: ");
         }
@@ -19,14 +21,13 @@ class employee
     //Data Insertion Function
     public function insert($firstName, $lastName, $email, $empPassword, $confirmPassword, $profileImage, $mobileNumber, $gender, $hobby, $country)
     {
-        // if($this->conn){
-        //     echo "<script>alert('yes')</script>";
-        // }else{
-        //     echo "<script>alert('No')</script>";
-        // }
-        $result = mysqli_query($this->conn, "INSERT INTO `emp_oops`(firstName,lastName,email,empPassword,confirmPassword,profileImage,mobileNumber,gender,hobby,country) VALUES
-        ('$firstName','$lastName','$email','$empPassword','$confirmPassword','$profileImage','$mobileNumber','$gender','$hobby','$country')");
-        return $result;
+        // Hash the password 
+    // $hashPassword = password_hash($empPassword, PASSWORD_DEFAULT);
+    // $hashconfirmPassword = password_hash($confirmPassword, PASSWORD_DEFAULT);
+
+    $result = mysqli_query($this->conn, "INSERT INTO `emp_oops`(firstName, lastName, email, empPassword, confirmPassword, profileImage, mobileNumber, gender, hobby, country) 
+    VALUES ('$firstName', '$lastName', '$email', '$empPassword', '$confirmPassword', '$profileImage', '$mobileNumber', '$gender', '$hobby', '$country')");
+    return $result;
     }
 
     // Fetch Data Function
@@ -45,7 +46,12 @@ class employee
     // Data Updation  function
     public function updateData($firstName, $lastName, $email, $empPassword, $confirmPassword, $profileImage, $mobileNumber, $gender, $hobby, $country, $id)
     {
-        $upd = mysqli_query($this->conn, "UPDATE `emp_oops` SET `firstName`='$firstName',`lastName`='$lastName',`email`='$email',`empPassword`='$empPassword',`confirmPassword`='$confirmPassword',`profileImage`= '$profileImage' ,`mobileNumber`= '$mobileNumber',`gender`= '$gender',`hobby`= '$hobby',`country`= '$country' WHERE id = '$id'");
+            // Hash the password 
+                // $hashPassword = password_hash($empPassword, PASSWORD_DEFAULT);
+                // $hashconfirmPassword = password_hash($confirmPassword, PASSWORD_DEFAULT);
+
+        $upd = mysqli_query($this->conn, "UPDATE `emp_oops` SET `firstName`='$firstName',`lastName`='$lastName',`email`='$email',
+        `empPassword`='$empPassword',`confirmPassword`='$confirmPassword',`profileImage`= '$profileImage' ,`mobileNumber`= '$mobileNumber',`gender`= '$gender',`hobby`= '$hobby',`country`= '$country' WHERE id = '$id'");
         return $upd;
     }
 
@@ -60,6 +66,8 @@ class employee
 // call database
 // $data = new employee();
 
+
+// Upload Image File
 class upload{
     public $src = "upload/";
     public $tmp;
@@ -78,6 +86,6 @@ class upload{
             return true;
         }
     }
-
-
 }
+
+

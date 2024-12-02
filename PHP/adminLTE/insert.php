@@ -146,8 +146,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = $_POST['email'];
     $empPassword = $_POST['empPassword'];
     $confirmPassword = $_POST['confirmPassword'];
-    // $password = password_hash($_POST['empPassword'], PASSWORD_DEFAULT);
-    // $confirmPassword = password_hash($_POST['confirmPassword'], PASSWORD_DEFAULT);
     $profileImage = $_FILES['profileImage']['name'];
     $mobileNumber = $_POST['mobileNumber'];
     $gender = $_POST['gender'];
@@ -228,9 +226,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 if ($empPassword !== $confirmPassword) {
                     echo "<script> alert('Password Do Not Match!');</script>";
                 } else {
-                    // $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-                    // $hashedConfirmPassword = password_hash($confirmPassword, PASSWORD_DEFAULT);
-
                     //password lenth check
                     if (!preg_match('/[^A-Za-z0-9]+/', $empPassword) || strlen($empPassword) < 8) {
                         echo "<script> alert('Invalid Password Formet & please Less then 8 charecter!');</script>";
@@ -246,15 +241,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             if (!isset($_POST['gender']) || empty($_POST['gender'])) {
                                 echo "<script> alert('Gender Selection Required');</script>";
                             } else {
-                                // Hashing the password
-                                //  $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-                                //  $hashedConfirmPassword = password_hash($confirmPassword, PASSWORD_DEFAULT);
+                
 
-                                $sql = "INSERT INTO `emp_details` (firstName, lastName, email, empPassword, confirmPassword, profileImage, mobileNumber, gender, hobby, country) 
-                                        VALUES ('$firstName', '$lastName', '$email', '$empPassword', '$confirmPassword', '$profileImage', '$mobileNumber', '$gender', '$hobby', '$country');";
-                                $result = mysqli_query($conn, $sql);
+                        // Hash the password before inserting into the database
+                        $hashedPassword = password_hash($empPassword, PASSWORD_DEFAULT);
+                        $hashedconfirmPassword = password_hash($confirmPassword, PASSWORD_DEFAULT);
 
 
+                        // Insert the data into the database
+                        $sql = "INSERT INTO `emp_details` (firstName, lastName, email, empPassword, confirmPassword, profileImage, mobileNumber, gender, hobby, country) 
+                                VALUES ('$firstName', '$lastName', '$email', '$hashedPassword', ' $hashedconfirmPassword', '$profileImage', '$mobileNumber', '$gender', '$hobby', '$country');";
+                        $result = mysqli_query($conn, $sql);
+                        
                                 echo "<script> alert('Your Registion Successfull!');</script>";
                             }
                         }

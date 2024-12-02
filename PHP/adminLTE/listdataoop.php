@@ -59,7 +59,14 @@ include "function.php";
                                     echo "<td>" . $row['email'] . "</td>";
                                     echo "<td>" . $row['empPassword'] . "</td>";
                                     echo "<td>" . $row['confirmPassword'] . "</td>";
-                                    echo "<td>" . $row['profile_image'] . "</td>";
+
+                                        if (!empty($row['profileImage'])) {
+                                            echo "<td><img src='upload/" . $row['profileImage'] . "' width='100' height='100' alt='Profile Image'></td>";
+                                        } else {
+                                            echo "<td>No Image Uploaded</td>";
+                                        }
+                                   
+                                    
                                     echo "<td>" . $row['mobileNumber'] . "</td>";
                                     echo "<td>" . $row['gender'] . "</td>";
                                     echo "<td>" . $row['hobby'] . "</td>";

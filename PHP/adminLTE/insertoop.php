@@ -30,23 +30,28 @@ include "function.php";
             <div class="card-body">
                 <div class="form-group">
                     <label for="exampleInputEmail1">FirstName</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" name="firstName" placeholder="Enter firstname">
+                    <input type="text" class="form-control" id="exampleInputEmail1" name="firstName"
+                        placeholder="Enter firstname">
                 </div>
                 <div class="form-group">
                     <label for="exampleInputEmail1">LastName</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" name="lastName" placeholder="Enter lastname">
+                    <input type="text" class="form-control" id="exampleInputEmail1" name="lastName"
+                        placeholder="Enter lastname">
                 </div>
                 <div class="form-group">
                     <label for="exampleInputEmail1">Email address</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" name="email" placeholder="Enter email">
+                    <input type="email" class="form-control" id="exampleInputEmail1" name="email"
+                        placeholder="Enter email">
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Password</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1" name="empPassword" placeholder="Enter Password">
+                    <input type="password" class="form-control" id="exampleInputPassword1" name="empPassword"
+                        placeholder="Enter Password">
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Confirm Password</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1" name="confirmPassword" placeholder="Enter Confirm Password">
+                    <input type="password" class="form-control" id="exampleInputPassword1" name="confirmPassword"
+                        placeholder="Enter Confirm Password">
                 </div>
                 <div class="form-group">
                     <label for="exampleInputFile">File input</label>
@@ -62,7 +67,8 @@ include "function.php";
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Mobile Number</label>
-                    <input type="text" class="form-control" id="exampleInputPassword1" name="mobileNumber" placeholder="Enter Mobile Number">
+                    <input type="text" class="form-control" id="exampleInputPassword1" name="mobileNumber"
+                        placeholder="Enter Mobile Number">
                 </div>
                 <!-- Gender -->
                 <div class="form-check pt-4">
@@ -130,117 +136,87 @@ if (isset($_POST['submit'])) {
     $email = $_POST['email'];
     $empPassword = $_POST['empPassword'];
     $confirmPassword = $_POST['confirmPassword'];
-    $profileImage = $_FILES['profileImage'];
+    $profileImage = $_FILES['profileImage']['name'];
     $mobileNumber = $_POST['mobileNumber'];
     $gender = $_POST['gender'];
     $hobby = implode(',', $_POST['hobby']);
     $country = $_POST['country'];
 
-    //image upload
-    // $target_dir = "uploadoop/";
-    // $target_file = $target_dir . basename($_FILES["profileImage"]["name"]);
-    // $uploadOk = 1;
-    // $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 
-    // Check if image file is a actual image or fake image
-    // if (isset($_POST["submit"])) {
-    //     $check = getimagesize($_FILES["profileImage"]["tmp_name"]);
-    //     if ($check !== false) {
-    //         echo "File is an image - " . $check["mime"] . ".";
-    //         $uploadOk = 1;
-    //     } else {
-    //         echo "File is not an image.";
-    //         $uploadOk = 0;
-    //     }
-    // }
-
-    // Check if file already exists
-    // if (file_exists($target_file)) {
-    //     echo "Sorry, file already exists.";
-    //     $uploadOk = 0;
-    // }
-
-    // Check file size
-    // if ($_FILES["fileToUpload"]["size"] > 500000) {
-    //     echo "Sorry, your file is too large.";
-    //     $uploadOk = 0;
-    // }
-
-    // Allow certain file formats
-    // if (
-    //     $imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-    //     && $imageFileType != "gif"
-    // ) {
-    //     echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
-    //     $uploadOk = 0;
-    // }
-
-    // Check if $uploadOk is set to 0 by an error
-    // if ($uploadOk == 0) {
-    //     echo "Sorry, your file was not uploaded.";
-    //     // if everything is ok, try to upload file
-    // } else {
-    //     if (move_uploaded_file($_FILES["profileImage"]["tmp_name"], $target_file)) {
-    //         // echo "<script>alert('Success! , uploading your file.')</script>";
-    //         echo "Success! , uploading your file.";
-    //     } else {
-    //         // echo "<script>alert('OOP's, there was an error uploading your file.')</script>";
-    //         echo "OOP's, there was an error uploading your file.";
-    //     }
-    // }
-    
-    if(isset($_FILES['profileImage'])){
+    //Image upload
+    if (isset($_FILES['profileImage'])) {
         $fileupload = new upload();
         $fileupload->startupload();
-        if($fileupload -> uploadfile()){
-            echo 'Error!Can not uploading ';
+        if ($fileupload->uploadfile()) {
+            echo 'success! Uploading image ';
         }
     }
 
- // Validation Required FirstName.
- if (empty($_POST['firstName'])) {
-    echo "<script> alert('Please enter your First Name!');</script>";
-} else {
-    // Required LastName.
-    if (empty($_POST['lastName'])) {
-        echo "<script> alert('Please enter your last Name!');</script>";
+
+    //   Validation Required FirstName.
+    if (empty($_POST['firstName'])) {
+        echo "<script> alert('Please enter your First Name!');</script>";
     } else {
-        //check email Exist
-        $emailExist = "SELECT * FROM `emp_details` WHERE email = '$email'";
-        $result = mysqli_query($conn, $emailExist);
-
-        // Email Formet Check
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            echo "<script> alert('Invalid Email Formet!');</script>";
-        } elseif (mysqli_num_rows($result) > 0) {
-
-            echo "<script> alert('Email Already exist!');</script>";
+        // Required LastName.
+        if (empty($_POST['lastName'])) {
+            echo "<script> alert('Please enter your last Name!');</script>";
         } else {
-            if ($empPassword !== $confirmPassword) {
-                echo "<script> alert('Password Do Not Match!');</script>";
-        
-            } else {
-                //password lenth check
-                if (!preg_match('/[^A-Za-z0-9]+/', $empPassword) || strlen($empPassword) < 8) {
-                    echo "<script> alert('Invalid Password Formet & please Less then 8 charecter!');</script>";
-                } else {
-             //pass hash
-                // $hashPassword = password_hash($empPassword, PASSWORD_DEFAULT);
-                // $hashConfirmPassword = password_hash($confirmPassword, PASSWORD_DEFAULT);
-                    // Mobile Number Validation
-                    if (empty($mobileNumber)) {
-                        echo "<script> alert('Mobile number is Required!');</script>";
-                    } elseif (!preg_match("/^[0-9]{10}$/", $mobileNumber)) {
+            //check email Exist
+            $emailExist = "SELECT * FROM `emp_details` WHERE email = '$email'";
+            $result = mysqli_query($conn, $emailExist);
 
-                        echo "<script> alert('Only 10 digit number is allowed!');</script>";
+            // Email Formet Check
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                echo "<script> alert('Invalid Email Formet!');</script>";
+            } elseif (mysqli_num_rows($result) > 0) {
+
+                echo "<script> alert('Email Already exist!');</script>";
+            } else {
+                if ($empPassword !== $confirmPassword) {
+                    echo "<script> alert('Password Do Not Match!');</script>";
+                } else {
+                    //password lenth check
+                    if (!preg_match('/[^A-Za-z0-9]+/', $empPassword) || strlen($empPassword) < 8) {
+                        echo "<script> alert('Invalid Password Formet & please Less then 8 charecter!');</script>";
                     } else {
-                        //Radio Button Validation
-                        if (!isset($_POST['gender']) || empty($_POST['gender'])) {
-                            echo "<script> alert('Gender Selection Required');</script>";
+                        // Profile Image validation
+                        // if (empty($profileImage['name'])) {
+                        //     echo "<script> alert('Please upload a profile image!');</script>";
+                        // } else {
+                        //     $fileupload = new upload();
+                        //     $fileupload->startupload();
+                        //     if (!$fileupload->uploadfile()) {
+                        //         echo "<script> alert('Error uploading profile image!');</script>";
+                        //     }
+
+                        // Mobile Number Validation
+                        if (empty($mobileNumber)) {
+                            echo "<script> alert('Mobile number is Required!');</script>";
+                        } elseif (!preg_match("/^[0-9]{10}$/", $mobileNumber)) {
+
+                            echo "<script> alert('Only 10 digit number is allowed!');</script>";
                         } else {
-                            // Function Call
-                            $sql = $insertdata->insert($firstName, $lastName, $email, $empPassword, $confirmPassword, $profileImage, $mobileNumber, $gender, $hobby, $country);
-                            echo "<script> alert('Your Registion Successfull!');</script>";
+                            //Radio Button Validation
+                            if (!isset($_POST['gender']) || empty($_POST['gender'])) {
+                                echo "<script> alert('Gender Selection Required');</script>";
+                            } else {
+                                // Hobby validation
+                                if (empty($hobby)) {
+                                    echo "<script> alert('Please select at least one hobby!');</script>";
+                                }
+                                // Country validation
+                                elseif (empty($country)) {
+                                    echo "<script> alert('Please select a country!');</script>";
+                                }
+
+                                // Function Call
+                                $sql = $insertdata->insert($firstName, $lastName, $email, $empPassword, $confirmPassword, $profileImage, $mobileNumber, $gender, $hobby, $country);
+                                if ($sql) {
+                                    echo "<script> alert('Registration Successful!');</script>";
+                                } else {
+                                    echo "<script> alert('Registration failed, please try again!');</script>";
+                                }
+                            }
                         }
                     }
                 }
@@ -248,8 +224,6 @@ if (isset($_POST['submit'])) {
         }
     }
 }
-
-
-}
+// }
 
 ?>

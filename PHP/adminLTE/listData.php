@@ -18,20 +18,20 @@ include("sideMenu.php");
 
 ?>
 <div class="content-header">
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1 class="m-0">Crud Operation </h1>
-                </div>
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Starter Page</li>
-                    </ol>
-                </div>
-            </div>
-        </div>
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1 class="m-0">Crud Operation </h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item active">Starter Page</li>
+        </ol>
+      </div>
     </div>
+  </div>
+</div>
 
 <!-- Main content -->
 <div class="container">
@@ -40,7 +40,7 @@ include("sideMenu.php");
       <div class="row">
         <div class="col-12">
           <div class="card">
-            
+
             <div class="card-body">
               <?php
 
@@ -74,11 +74,9 @@ include("sideMenu.php");
                   echo "<td>" . $row['firstName'] . "</td>";
                   echo "<td>" . $row['lastName'] . "</td>";
                   echo "<td>" . $row['email'] . "</td>";
-                  echo "<td>" . password_hash($row['password'], PASSWORD_DEFAULT) . "</td>";
-                  echo "<td>" . password_hash($row['confirmPassword'], PASSWORD_DEFAULT) . "</td>";
-
-                   echo '<td> <img src="upload/', $row['profilImage'], '" /></td>';
-                  echo "<td>" . $row['profileImage'] . "</td>";
+                  echo "<td>" . $row['empPassword'] . "</td>";
+                  echo "<td>" . $row['confirmPassword'] . "</td>";
+                  echo "<td><img src='upload/" . $row['profileImage'] . "' alt='Profile Image' width='50' height='50'></td>";
                   echo "<td>" . $row['mobileNumber'] . "</td>";
                   echo "<td>" . $row['gender'] . "</td>";
                   echo "<td>" . $row['hobby'] . "</td>";
@@ -90,11 +88,9 @@ include("sideMenu.php");
                   echo "</tr>";
                 }
                 echo " </table>";
-        
+
               }
-        
-              // <!-- //<img src="data:image/jpeg;base64,'.base64_encode($row['name'] ).'" height="200" width="200" class="img-thumnail" /> -->
-         
+
               ?>
             </div>
           </div>
@@ -104,8 +100,5 @@ include("sideMenu.php");
   </section>
 </div>
 <?php
- include("footer.php"); 
+include("footer.php");
 ?>
-
-
-
