@@ -32,7 +32,7 @@ include "db_connect.php";
 $sql = "SELECT * FROM `AjaxCrud`";
 // $result = mysqli_query($sql, $conn);
 
-echo '<table id="listData" class="table table-bordered table-hover">';
+echo '<table id="   " class="table table-bordered table-hover">';
 echo "<thead>";
 echo "<tr>
                                     <th>Id</th>
@@ -51,7 +51,6 @@ echo "<tr>
 echo "<tr>";
 echo "</thead>";
 
-include 'database.php';
 	$sql = "SELECT * FROM AjaxCrud";
 	$result = $conn->query($sql);
 	if ($result->num_rows > 0) {
