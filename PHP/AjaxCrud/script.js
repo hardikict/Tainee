@@ -1,3 +1,4 @@
+src = "http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"
 
 // Insert Data
 $(document).ready(function () {
@@ -60,103 +61,111 @@ $(document).ready(function (e) {
 });
 
 
-// List Data 
+// GET Data 
+// var editData = function (id) {
+     function editData (id) {
 
-$.ajax({
-    url: "listdata.php",
-    type: "POST",
-    cache: false,
-    success: function (data) {
-        alert(data);
-        $('#tableList').html(data);
-    }
-});
+    $('#tableData').load('updateForm.php')
 
-// DeleteData
-
-var deleteData = function(id) {
     $.ajax({
         type: "GET",
-        url: "",
-        data: {
-            id: id
-        },
+        url: "updateData.php",
+        data: { id: id },
         dataType: "html",
-        success: function(data) {
-            $('#msg').html(data);
-            $('#tableData').load('listdata.php');
+        success: function (data) {
+
+            var userData = JSON.parse(data);
+            $("input[name='id']").val(userData.id);
+            $("input[name='firstName']").val(userData.firstName);
+            $("input[name='lastName']").val(userData.lastName);
+            $("input[name='email']").val(userData.email);
+            $("input[name='empPassword']").val(userData.empPassword);
+            $("input[name='confirmPassword']").val(userData.confirmPassword);
+            $("input[name='profileImage']").val($_FILES(userData.profileImage));
+            $("input[name='mobileNumber']").val(userData.mobileNumber);
+            $("input[name='gender']").val(expload(',', userData.gender));
+            $("input[name='hobby']").val(userData.hobby);
+            $("input[name='country']").val(userData.country);
 
         }
+
     });
 };
 
+// Update Data 
+$(document).on('submit', '#updateForm', function (e) {
+    e.preventDefault();
+    //   var id= $("input[name ='id']").val();               
+    var firstName = $("input[name='firstName']").val();
+    var lastName = $("input[name='lastName']").val();
+    var email = $("input[name='email']").val();
+    var empPassword = $("input[name='empPassword']").val();
+    var confirmPassword = $("input[name ='confirmPassword']").val();
+    var profileImage = $("input[name='profileImage']").val();
+    var mobileNumber = $("input[name='mobileNumber']").val();
+    var gender = $("input[name='gender']").val();
+    var hobby = $("input[name='hobby']").val();
+    var country = $("input[name='country']").val();
 
-// // GET Data 
-var editData = function(id){
-    $('#tableData').load('updateForm.php')
- 
-     $.ajax({    
-         type: "GET",
-         url: "updateData.php", 
-         data:{id:id},            
-         dataType: "html",                  
-         success: function(data){   
- 
-           var userData=JSON.parse(data);  
-//         //    $("input[name='id']").val(userData.id);               
-           $("input[name='firstName']").val(userData.firstName);
-           $("input[name='lastName']").val(userData.lastName);
-           $("input[name='email']").val(userData.email);
-           $("input[name='empPassword']").val(userData.empPassword);
-           $("input[name='confirmPassword']").val(userData.confirmPassword);               
-           $("input[name='profileImage']").val($_FILES(userData.profileImage));
-           $("input[name='mobileNumber']").val(userData.mobileNumber);
-           $("input[name='gender']").val(expload(',',userData.gender));
-           $("input[name='hobby']").val(userData.hobby);
-           $("input[name='country']").val(userData.country);
-           
-         }
- 
-     });
- };
- 
- 
-//  // Update Data 
- $(document).on('submit','#updateForm',function(e){
-         e.preventDefault();
-        //   var id= $("input[name ='id']").val();               
-          var firstName= $("input[name='firstName']").val();
-          var lastName= $("input[name='lastName']").val();
-          var email= $("input[name='email']").val();
-          var empPassword= $("input[name='empPassword']").val();
-          var confirmPassword= $("input[name ='confirmPassword']").val();               
-          var profileImage= $("input[name='profileImage']").val();
-          var mobileNumber= $("input[name='mobileNumber']").val();
-          var gender= $("input[name='gender']").val();
-          var hobby= $("input[name='hobby']").val();
-          var country= $("input[name='country']").val();
+    $.ajax({
+        method: "POST",
+        url: "updateData.php",
+        data: {
+            //    id:id,
+            firstName: firstName,
+            lastName: lastName,
+            email: email,
+            empPassword: empPassword,
+            confirmPassword: confirmPassword,
+            profileImage: profileImage,
+            mobileNumber: mobileNumber,
+            gender: gender,
+            hobby: hobby,
+            country: country
 
-         $.ajax({
-         method:"POST",
-         url: "updateData.php",
-         data:{
+        },
+        success: function (data) {
+            $('#tableData').load('showData.php');
+            $('#msg').html(data);
 
-        //    id:id,
-           firstName:firstName,
-           lastName:lastName,
-           email:email,
-           empPassword:empPassword,
-           confirmPassword:confirmPassword,
-           profileImage:profileImage,
-           mobileNumber:mobileNumber,
-           gender:gender,
-           hobby:hobby,
-           country:country
- 
-         },
-         success: function(data){
-         $('#tableData').load('showData.php');
-         $('#msg').html(data);
-    
-     }});
- });
+        }
+    });
+});
+
+
+
+// function deleteData(id){
+//     $.ajax({    
+//         type: "GET",
+//         url: "delete.php", 
+//         data:{
+//             id:id
+//         },            
+//         dataType: "html",                  
+//         success: function(data){   
+//         $('#msg').html(data);
+//         console.log("data",data);
+//         $('#tableData').load('');
+//         }
+//     });
+// };
+
+
+// Delete data  ajax
+
+function deleteData(id){
+        $.ajax({    
+            type: "GET",
+            url: "delete.php", 
+            data:{
+                id:id
+            },            
+            dataType: "html",                  
+            success: function(data){   
+            $('#tableData').load('');
+            }
+        });
+    };
+
+
+

@@ -77,10 +77,16 @@ session_start();
                                         <p>ListData Page</p>
                                     </a>
                                 </li> -->
-                                <li class="nav-item">
+                                <!-- <li class="nav-item">
                                     <a href="listdata.php" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>ListData Page</p>
+                                    </a>
+                                </li> -->
+                                <li class="nav-item">
+                                    <a href="showData.php" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>ShowData</p>
                                     </a>
                                 </li>
                             </ul>

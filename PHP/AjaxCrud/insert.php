@@ -2,6 +2,7 @@
 include "heder.php";
 include "sideMenu.php";
 include "db_connect.php";
+
 ?>
 
 <div class="container">
@@ -150,7 +151,9 @@ VALUES ('$firstName', '$lastName', '$email', '$empPassword', ' $confirmPassword'
 $result = mysqli_query($conn, $sql);
 
 if ($result) {
-    echo "<script> alert('Successful! Insert Your Data.');</script>";
+    // echo "<script> alert('Successful! Insert Your Data.');</script>";    
+    // header("location:showData.php");
+    echo "<script> window.location = 'showData.php'; </script>";
 } else {
     echo "<script> alert('failed! please try again!');</script>";
 }

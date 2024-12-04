@@ -4,10 +4,7 @@ include "sideMenu.php";
 include "db_connect.php";
 
 
-$sql = "SELECT * FROM `AjaxCrud`";
-
-
-echo '<table id="tableData" class="table table-bordered table-hover">';
+echo '<table id="tabledata" class="table table-bordered table-hover">';
 echo "<thead>";
 echo "<tr>
                                     <th>Id</th>

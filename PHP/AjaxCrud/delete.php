@@ -1,26 +1,24 @@
+
 <?php
 
 include('db_connect.php');
+if(isset($_GET['id'])){
 
-if (isset($_GET['id'])) {
-    $id = $_GET['id'];
+    $id= $_GET['id'];
     delete_data($conn, $id);
+ 
 }
 // delete data query
 function delete_data($conn, $id)
 {
-    $sql = "DELETE FROM `AjaxCrud` WHERE id = $id";
-    if (mysqli_query($conn, $sql)) {
-        echo "<script>alert('Success! Recodrd deleted')</script>";
-        header("location:listdata.php");
-    } else {
-        echo "<script>alert('Error! Recodrd Not deleted')</script>";
+    $query="DELETE FROM `AjaxCrud` WHERE id = $id";
+    $result= mysqli_query($conn,$query);
+    if($result){
+      echo json_encode(array("abc"=>'successfuly deleted'));
     }
 }
 
-
 ?>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="script.js"></script>
-
 

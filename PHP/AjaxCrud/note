@@ -29,3 +29,12 @@
 	}
 	mysqli_close($conn);
 ?>
+
+else{
+     
+	 echo "<tr>
+		   <td colspan='7'>No Data Found</td>
+		  </tr>"; 
+   }
+	 echo "</table>";
+   }
