@@ -1,0 +1,396 @@
+jQuery
+<!-- <script src="../../plugins/jquery/jquery.min.js"></script> -->
+<!-- Bootstrap 4 -->
+<!-- <script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script> -->
+<!-- DataTables  & Plugins -->
+<!-- <script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="../../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="../../plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="../../plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+<script src="../../plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+<script src="../../plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+<script src="../../plugins/jszip/jszip.min.js"></script>
+<script src="../../plugins/pdfmake/pdfmake.min.js"></script>
+<script src="../../plugins/pdfmake/vfs_fonts.js"></script>
+<script src="../../plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+<script src="../../plugins/datatables-buttons/js/buttons.print.min.js"></script>
+<script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script> -->
+<!-- AdminLTE App -->
+<!-- <script src="../../dist/js/adminlte.min.js"></script> -->
+<!-- AdminLTE for demo purposes -->
+<!-- <script src="../../dist/js/demo.js"></script> -->
+<!-- Page specific script -->
+<script>
+  // $(function() {
+  //   $("#example1").DataTable({
+  //     "responsive": true,
+  //     "lengthChange": false,
+  //     "autoWidth": false,
+  //     "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+  //   }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+  //   $('#example2').DataTable({
+  //     "paging": true,
+  //     "lengthChange": false,
+  //     "searching": false,
+  //     "ordering": true,
+  //     "info": true,
+  //     "autoWidth": false,
+  //     "responsive": true,
+  //   });
+  // });
+</script>
+
+<!-- //dashboard show data
+echo "<h1>Welcome, " . $row['name'] . "</h1>";
+    echo "<p>Username: " . $row['userName'] . "</p>";
+    echo "<p>Email: " . $row['email'] . "</p>"; -->
+
+
+    <!-- //logout insertfirstpage
+// if (!empty(($_SESSION['id']))) {
+//     $id = $_SESSION['id'];
+//     $sql = "SELECT * FROM `registration` WHERE id = '$id'";
+//     $result = mysqli_query($conn, $sql);
+//     $row = mysqli_fetch_assoc($result);
+// }
+// else{
+//     header("location: login.php");
+// } -->
+
+
+
+
+<!-- //  echo '<td> <img src="upload/jpeg;base64,'.base64_encode($row['profilImage'] ).'" height="20" width="200" class="img-thumnail" /></td>';
+                  // echo '<td> <img src="upload/', $row['profilImage'], '" /></td>';
+                  // echo "<td> <img src='upload/style/" .  $profilImage['profilImage']. "'/>    </td>";
+                //  echo '<td><img src="upload/' . $row['profilImage']. '" alt="image" ,width=10px, height=10px /></td>'; -->
+
+
+
+
+                <!-- //image upload
+    // $target_dir = "uploadoop/";
+    // $target_file = $target_dir . basename($_FILES["profileImage"]["name"]);
+    // $uploadOk = 1;
+    // $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+
+    // Check if image file is a actual image or fake image
+    // if (isset($_POST["submit"])) {
+    //     $check = getimagesize($_FILES["profileImage"]["tmp_name"]);
+    //     if ($check !== false) {
+    //         echo "File is an image - " . $check["mime"] . ".";
+    //         $uploadOk = 1;
+    //     } else {
+    //         echo "File is not an image.";
+    //         $uploadOk = 0;
+    //     }
+    // }
+
+    // Check if file already exists
+    // if (file_exists($target_file)) {
+    //     echo "Sorry, file already exists.";
+    //     $uploadOk = 0;
+    // }
+
+    // Check file size
+    // if ($_FILES["fileToUpload"]["size"] > 500000) {
+    //     echo "Sorry, your file is too large.";
+    //     $uploadOk = 0;
+    // }
+
+    // Allow certain file formats
+    // if (
+    //     $imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+    //     && $imageFileType != "gif"
+    // ) {
+    //     echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+    //     $uploadOk = 0;
+    // }
+
+    // Check if $uploadOk is set to 0 by an error
+    // if ($uploadOk == 0) {
+    //     echo "Sorry, your file was not uploaded.";
+    //     // if everything is ok, try to upload file
+    // } else {
+    //     if (move_uploaded_file($_FILES["profileImage"]["tmp_name"], $target_file)) {
+    //         // echo "<script>alert('Success! , uploading your file.')</script>";
+    //         echo "Success! , uploading your file.";
+    //     } else {
+    //         // echo "<script>alert('OOP's, there was an error uploading your file.')</script>"; -->
+    //         echo "OOP's, there was an error uploading your file.";
+    //     }
+    // }
+
+     // $password = password_hash($_POST['empPassword'], PASSWORD_DEFAULT);
+    // $confirmPassword = password_hash($_POST['confirmPassword'], PASSWORD_DEFAULT);
+
+
+     // $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+                    // $hashedConfirmPassword = password_hash($confirmPassword, PASSWORD_DEFAULT);
+                    
+  //    $sql = "INSERT INTO `emp_details` (firstName, lastName, email, empPassword, confirmPassword, profileImage, mobileNumber, gender, hobby, country) 
+                            //             VALUES ('$firstName', '$lastName', '$email', '$empPassword', '$confirmPassword', '$profileImage', '$mobileNumber', '$gender', '$hobby', '$country');";
+                            //     $result = mysqli_query($conn, $sql);
+
+
+
+                            // $result = mysqli_query($this->conn, "INSERT INTO `emp_oops`(firstName,lastName,email,empPassword,confirmPassword,profileImage,mobileNumber,gender,hobby,country) VALUES
+        // ('$firstName','$lastName','$email','$empPassword','$confirmPassword','$profileImage','$mobileNumber','$gender','$hobby','$country')");
+        // return $result;
+
+
+
+
+         //  Validation Required FirstName.
+    // if (empty($_POST['firstName'])) {
+    //     echo "<script> alert('Please enter your First Name!');</script>";
+    // } else {
+    //     // Required LastName.
+    //     if (empty($_POST['lastName'])) {
+    //         echo "<script> alert('Please enter your last Name!');</script>";
+    //     } else {
+    //         //check email Exist
+    //         $emailExist = "SELECT * FROM `emp_details` WHERE email = '$email'";
+    //         $result = mysqli_query($conn, $emailExist);
+
+    //         // Email Formet Check
+    //         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    //             echo "<script> alert('Invalid Email Formet!');</script>";
+    //         } elseif (mysqli_num_rows($result) > 0) {
+
+    //             echo "<script> alert('Email Already exist!');</script>";
+    //         } else {
+    //             if ($empPassword !== $confirmPassword) {
+    //                 echo "<script> alert('Password Do Not Match!');</script>";
+
+    //             } else {
+    //                 //password lenth check
+    //                 if (!preg_match('/[^A-Za-z0-9]+/', $empPassword) || strlen($empPassword) < 8) {
+    //                     echo "<script> alert('Invalid Password Formet & please Less then 8 charecter!');</script>";
+    //                 } else {
+    //                     // Profile Image validation
+    //                     if (empty($profileImage['name'])) {
+    //                         echo "<script> alert('Please upload a profile image!');</script>";
+    //                     } else {
+    //                         $fileupload = new upload();
+    //                         $fileupload->startupload();
+    //                         if (!$fileupload->uploadfile()) {
+    //                             echo "<script> alert('Error uploading profile image!');</script>";
+    //                         }
+                        
+
+    //                     // Mobile Number Validation
+    //                     if (empty($mobileNumber)) {
+    //                         echo "<script> alert('Mobile number is Required!');</script>";
+    //                     } elseif (!preg_match("/^[0-9]{10}$/", $mobileNumber)) {
+
+    //                         echo "<script> alert('Only 10 digit number is allowed!');</script>";
+    //                     } else {
+    //                         //Radio Button Validation
+    //                         if (!isset($_POST['gender']) || empty($_POST['gender'])) {
+    //                             echo "<script> alert('Gender Selection Required');</script>";
+    //                         } else {
+    //                             // Hobby validation
+    //                             if (empty($hobby)) {
+    //                                 echo "<script> alert('Please select at least one hobby!');</script>";
+    //                             }
+    //                             // Country validation
+    //                             elseif (empty($country)) {
+    //                                 echo "<script> alert('Please select a country!');</script>";
+    //                             }
+
+    //                             // Function Call
+    //                             $sql = $insertdata->insert($firstName, $lastName, $email, $empPassword, $confirmPassword, $profileImage, $mobileNumber, $gender, $hobby, $country);
+    //                             echo "<script> alert('Your Registion Successfull!');</script>";
+    //                         }
+    //                     }
+    //                 }}
+    //             }
+    //         }
+    //     }
+    // }
+
+
+    // if (!preg_match("/^[0-9]{10}$/", $mobileNumber)) {
+    //     echo "<script>alert('Mobile number should be 10 digits!');</script>";
+    //     exit;
+    // }
+
+
+      //function call
+    // $sql = $upd->updateData($firstName, $lastName, $email, $empPassword, $confirmPassword, $profileImage, $mobileNumber, $gender, $hobby, $country, $id);
+    // if ($sql) {
+    //     echo "<script>alert('Record Updated Successfully')</script>";
+    // } else {
+    //     echo "<script>alert('Record Not Updated')</script>";
+    // }
+
+    
+  // Image upload handling
+//   if (isset($_FILES['profileImage'])) {
+//     $fileupload = new upload();
+//     $fileupload->startupload(); 
+
+//     $uploadStatus = $fileupload->uploadfile(); 
+
+//     // Check if upload was successful
+//     if ($uploadStatus === "Error: File upload failed!" || $uploadStatus === "Error: File already exists!") {
+//         echo "<script> alert('$uploadStatus');</script>";
+//         exit;  
+//     } else {
+//         $profileImage = basename($uploadStatus);
+//     }
+// }
+
+
+
+  //  // First Name
+    //  if (empty($firstName)) {
+    //     echo "<script> alert('Please enter your First Name!');</script>";
+    //     exit;  
+    // }
+
+    // //  Last Name
+    // if (empty($lastName)) {
+    //     echo "<script> alert('Please enter your Last Name!');</script>";
+    //     exit; 
+    // }
+
+    // // Email
+    // if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    //     echo "<script> alert('Invalid Email Format!');</script>";
+    //     exit; 
+    // }
+
+    // // Check if Email already exists
+    // $emailExist = "SELECT * FROM `emp_details` WHERE email = '$email'";
+    // $result = mysqli_query($conn, $emailExist);
+    // if (mysqli_num_rows($result) > 0) {
+    //     echo "<script> alert('Email Already Exists!');</script>";
+    //     exit; 
+    // }
+
+    // // Password
+    // if ($empPassword !== $confirmPassword) {
+    //     echo "<script> alert('Passwords do not match!');</script>";
+    //     exit;  
+    // }
+
+    // // Password Format and Length
+    // if (!preg_match('/[^A-Za-z0-9]+/', $empPassword) || strlen($empPassword) < 8) {
+    //     echo "<script> alert('Password must be at least 8 characters and include special characters!');</script>";
+    //     exit; 
+    // }
+
+
+    // //  Mobile Number
+    // if (empty($mobileNumber)) {
+    //     echo "<script> alert('Mobile number is required!');</script>";
+    //     exit;
+    // }
+    // if (!preg_match("/^[0-9]{10}$/", $mobileNumber)) {
+    //     echo "<script> alert('Mobile number must be 10 digits!');</script>";
+    //     exit;
+    // }
+
+    // //  Gender
+    // if (empty($gender)) {
+    //     echo "<script> alert('Gender is required!');</script>";
+    //     exit;  
+    // }
+
+    // //  Hobby
+    // if (empty($hobby)) {
+    //     echo "<script> alert('Please select at least one hobby!');</script>";
+    //     exit; 
+    // }
+
+    // //  Country
+    // if (empty($country)) {
+    //     echo "<script> alert('Please select a country!');</script>";
+    //     exit; 
+    // }
+
+    
+    // // Function call
+    // $sql = $insertdata->insert($firstName, $lastName, $email, $empPassword, $confirmPassword, $profileImage, $mobileNumber, $gender, $hobby, $country);
+    
+   
+    // if ($sql) {
+    //     echo "<script> alert('Registration Successful!');</script>";
+    // } else {
+    //     echo "<script> alert('Registration failed, please try again!');</script>";
+    // }
+
+
+      // // Validation for empty fields
+        // if (empty($firstName)) {
+
+        //     echo "<script>alert('First Name is required!')</script>";
+
+        // } elseif (empty($lastName)) {
+
+        //     echo "<script>alert('Last Name is required!')</script>";
+
+        // } elseif (empty($email)) {
+
+        //     echo "<script>alert('Email is required!')</script>";
+
+        // } elseif (empty($empPassword)) {
+
+        //     echo "<script>alert('Password is required')</script>";
+
+        // } elseif (empty($confirmPassword)) {
+
+        //     echo "<script>alert('Confirm Password is required!')</script>";
+
+        // } elseif (empty($mobileNumber)) {
+
+        //     echo "<script>alert('Mobile Number is required!')</script>";
+
+        // } elseif (empty($gender)) {
+
+        //     echo "<script>alert('Gender is required!')</script>";
+
+        // } elseif (empty($country)) {
+
+        //     echo "<script>alert('Country selection is required!')</script>";
+
+        // }
+
+        // // Password match validation
+        // if ($empPassword !== $confirmPassword) {
+        //     echo "<script>alert('Passwords do not match!')</script>";
+
+        // }
+
+        // // Email validation
+        // if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+
+        //     echo "<script>alert('Invalid email format!')</script>";
+
+        // }
+        // // Check if file is uploaded 
+        // if ($profileImage['error'] == 4) {  // No file uploaded
+
+        //     echo "<script>alert('Profile Image is required!')</script>";
+
+        // }
+
+        // // Ensure at least one hobby is selected
+        // if (empty($hobby)) {
+        //     echo "<script>alert('At least one hobby is required!')</script>";
+
+        // }
+
+        // //  call function updating data
+        // if (empty($error)) {
+        //     $sql = $updation->updateData($firstName, $lastName, $email, $empPassword, $confirmPassword, $profileImage, $mobileNumber, $gender, $hobby, $country, $id);
+        //     if ($sql) {
+        //         echo "<script>alert('Record Updated Successfully')</script>";
+        //     } else {
+        //         echo "<script>alert('Record Not Updated')</script>";
+        //     }
+
+
+        // }
