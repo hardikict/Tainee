@@ -25,19 +25,18 @@ function edit_data($conn, $id)
 // update data query
 function update_data($conn, $id)
 {
-    $firstName = legal_input($_POST['firstName']);
-    $lastName = legal_input($_POST['lastName']);
-    $email = legal_input($_POST['email']);
-    $empPassword = legal_input($_POST['empPassword']);
-    $confirmPassword = legal_input($_POST['confirmPassword']);
-    $profileImage = legal_input($_POST['profileImage']);
-    $mobileNumber = legal_input($_POST['mobileNumber']);
-    $gender = legal_input($_POST['gender']);
-    $hobby = legal_input($_POST['hobby']);
-    $country = legal_input($_POST['country']);
+    $firstName = $_POST['firstName'];
+    $lastName = $_POST['lastName'];
+    $email = $_POST['email'];
+    $empPassword = $_POST['empPassword'];
+    $confirmPassword = $_POST['confirmPassword'];
+    $profileImage = $_POST['profileImage'];
+    $mobileNumber = $_POST['mobileNumber'];
+    $gender = $_POST['gender'];
+    $hobby = $_POST['hobby'];
+    $country = $_POST['country'];
 
-
-    $query = "UPDATE `AjaxCrud` SET 
+     $query = "UPDATE `AjaxCrud` SET 
                 firstName ='$firstName',
                 lastName ='$lastName',
                 email = '$email',
@@ -59,15 +58,6 @@ function update_data($conn, $id)
     }
 }
 
-
-// convert illegal input to legal input
-function legal_input($value)
-{
-    $value = trim($value);
-    $value = stripslashes($value);
-    $value = htmlspecialchars($value);
-    return $value;
-}
 ?>
 <script src="script.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>

@@ -112,7 +112,7 @@ include "db_connect.php";
                 </div>
             </div>
             <div class="card-footer">
-                <button type="submit" name="submit" class="btn btn-success">Submit</button>
+                <button type="submit" name="submit"  class="btn btn-success">Submit</button>
             </div>
         </form>
     </div>
@@ -162,3 +162,4 @@ if ($result) {
 include "footer.php";
 ?>
 <script src="script.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>

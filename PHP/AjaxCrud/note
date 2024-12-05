@@ -38,3 +38,90 @@ else{
    }
 	 echo "</table>";
    }
+//imge
+   if(images != '')
+  {
+   $('#uploaded_image').html('<img src="images/'+images+'" class="img-thumbnail" width="100" />');
+   $('#hidden_images').val(images);
+  }
+
+
+
+
+  
+// Get Particular Record
+// function get_record() {
+// $(document).on('click', '#editid', function () {
+
+//     var id = $(this).attr('id');
+
+//     $.ajax(
+//         {
+//             url: 'getdata.php',
+//             method: 'POST',
+//             data: { id: id },
+//             dataType: 'JSON',
+//             success: function (data) {
+//                 $('#id').val(data[0]);
+//                 $('#firstName').val(data[1]);
+//                 $('#lastName').val(data[2]);
+//                 $('#email').val(data[3]);
+//                 $('#empPassword').val(data[4]);
+//                 $('#confirmPassword').val(data[5]);
+//                 $('#profileImage').val(data[6]);
+//                 $('#mobileNumber').val(data[7]);
+//                 $('#gender').val(data[8]);
+//                 $('#hobby').val(data[9]);
+//                 $('#country').val(data[10]);
+
+//                 //    $('#update').modal('');
+
+//             }
+
+//         })
+// })
+// // }
+
+// // Update Record 
+// function update_record() {
+//     $(document).on('click', '#update', function () {
+//         // var id = $('#id').val();
+//         var firstName = $('#firstName').val();
+//         var lastName = $('#lastName').val();
+//         var email = $('#email').val();
+//         var empPassword = $('#empPassword').val();
+//         var confirmPassword = $('#confirmPassword').val();
+//         var profileImage = $('#profileImage').val();
+//         var mobileNumber = $('#mobileNumber').val();
+//         var gender = $('#gender').val();
+//         var hobby = $('#hobby').val();
+//         var country = $('#country').val();
+
+//         $.ajax(
+//             {
+//                 url: 'updateForm.php',
+//                 method: 'POST',
+//                 data: {
+//                     id: id,
+//                     firstName: firstName,
+//                     lastName: lastName,
+//                     email: email,
+//                     empPassword: empPassword,
+//                     confirmPassword: confirmPassword,
+//                     profileImage: profileImage,
+//                     mobileNumber: mobileNumber,
+//                     gender: gender,
+//                     hobby: hobby,
+//                     country: country
+//                 },
+//                 success: function (data) {
+//                     alert("success");
+//                     // $('#up-message').html(data);
+//                     $('#update').modal('');
+//                     view_record();
+//                 }
+//             })
+//         // }
+
+//     })
+// }

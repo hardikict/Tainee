@@ -25,7 +25,7 @@ include "db_connect.php";
         <div class="card-header">
             <h3 class="card-title">Update Data</h3>
         </div>
-        <form id="updateForm" action="" method="POST" enctype="multipart/form-data">
+        <form  action="" method="POST" id="updateForm" enctype="multipart/form-data">
             <div class="card-body">
                 <div class="form-group">
                     <label for="exampleInputEmail1">FirstName</label>
@@ -112,11 +112,17 @@ include "db_connect.php";
                 </div>
             </div>
             <div class="card-footer">
-                <button type="submit" name="submit" class="btn btn-success">Submit</button>
+                <button type="submit" name="update" id="update" value="update" class="btn btn-success">update</button>
             </div>
         </form>
     </div>
 </div>
 
+
+<?php
+
+include "footer.php"; 
+
+?>
 <script src="script.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
