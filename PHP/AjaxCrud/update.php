@@ -255,7 +255,6 @@ include "db_connect.php";
     //         success: function(data) {
     //             $('#tableData').load('listdata.php');
     //             $('#msg').html(data);
-
     //         }
     //     });
     // });
@@ -263,6 +262,6 @@ include "db_connect.php";
 
 
 <?php
-include "footer.php";
+// include "footer.php";
 ?>
 <!-- <script src="script.js"></script> -->

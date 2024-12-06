@@ -25,7 +25,7 @@ include "db_connect.php";
         <div class="card-header">
             <h3 class="card-title">Update Data</h3>
         </div>
-        <form id="updateForm" action="" method="POST" enctype="multipart/form-data">
+        <form  action="" method="POST" id="updateForm" enctype="multipart/form-data">
             <div class="card-body">
                 <div class="form-group">
                     <label for="exampleInputEmail1">FirstName</label>
@@ -66,33 +66,33 @@ include "db_connect.php";
                 </div>
                 <!-- Gender -->
                 <div class="form-check pt-4">
-                    <input class="form-check-input" type="radio" name="gender" value="female" id="gender">
+                    <input class="form-check-input" type="radio" name="gender" value="female" id="female">
                     <label class="form-check-label" for="flexRadioDefault1">
                         female
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="gender" value="male" id="gender">
+                    <input class="form-check-input" type="radio" name="gender" value="male" id="male">
                     <label class="form-check-label" for="flexRadioDefault2">
                         male
                     </label>
                 </div>
                 <!-- Hobbby -->
                 <div class="form-check pt-4">
-                    <input class="form-check-input" type="checkbox" value="Cricket" id="hobby" name="hobby[]">
+                    <input class="form-check-input" type="checkbox" value="Cricket" id="Cricket" name="hobby[]">
                     <label class="form-check-label" for="flexCheckDefault">
                         Cricket
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="Writing" id="hobby" name="hobby[]">
+                    <input class="form-check-input" type="checkbox" value="Writing" id="Writing" name="hobby[]">
                     <label class="form-check-label" for="flexCheckChecked">
                         Writing
                     </label>
                 </div>
 
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="Music" id="hobby" name="hobby[]">
+                    <input class="form-check-input" type="checkbox" value="Music" id="Music" name="hobby[]">
                     <label class="form-check-label" for="flexCheckDefault">
                         Music
                     </label>
@@ -112,11 +112,17 @@ include "db_connect.php";
                 </div>
             </div>
             <div class="card-footer">
-                <button type="submit" name="submit" class="btn btn-success">Submit</button>
+                <button type="submit" name="update" id="update" value="update" class="btn btn-success">update</button>
             </div>
         </form>
     </div>
 </div>
 
+
+<?php
+
+include "footer.php"; 
+
+?>
 <script src="script.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>

@@ -119,46 +119,125 @@ include "db_connect.php";
 </div>
 
 
-
-
 <?php
 
-$firstName = $_POST['firstName'];
-$lastName = $_POST['lastName'];
-$email = $_POST['email'];
-$empPassword = $_POST['empPassword'];
-$confirmPassword = $_POST['confirmPassword'];
-$profileImage = $_FILES['profileImage']['name'];
-$mobileNumber = $_POST['mobileNumber'];
-$gender = $_POST['gender'];
-$hobby = implode(',', $_POST['hobby']);
-$country = $_POST['country'];
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Validation's
+    if (empty($_POST['firstName'])) {
+        echo "<script> alert('failed! First name is required.');</script>";
+        exit;
+    }
 
-//Image upload
-if (is_array($_FILES)) {
+    if (empty($_POST['lastName'])) {
+        echo "<script> alert('failed! Last name is required.');</script>";
+        exit;
+    }
 
-    if (is_uploaded_file($_FILES['profileImage']['tmp_name'])) {
-       $sourcePath = $_FILES['profileImage']['tmp_name'];
-       $targetPath = "upload/" . $_FILES['profileImage']['name'];
-        move_uploaded_file($sourcePath, $targetPath);
-            
+    // check email Exist
+    $email = $_POST['email'];
+    $emailExist = "SELECT * FROM `AjaxCrud` WHERE email = '$email'";
+    $result = mysqli_query($conn, $emailExist);
+
+    if (mysqli_num_rows($result) > 0) {
+        echo "<script> alert('Email Already exist!');</script>";
+        exit;
+    }
+
+    if (empty($_POST['email'])) {
+        echo "<script> alert('failed! Email is required.');</script>";
+        exit;
+    } elseif (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+        echo "<script> alert('failed! Invalid email format.');</script>";
+        exit;
+    }
+
+    if (empty($_POST['empPassword'])) {
+        echo "<script> alert('failed! Password is required.');</script>";
+        exit;
+    }
+
+    if (empty($_POST['confirmPassword'])) {
+        echo "<script> alert('failed! Confirm password is required.');</script>";
+        exit;
+    }
+    //password lenth check
+    if (!preg_match('/[^A-Za-z0-9]+/', $_POST['empPassword']) || strlen($_POST['confirmPassword']) < 8) {
+        echo "<script> alert('Invalid Password Formet & please Less then 8 charecter!');</script>";
+        exit;
+    } elseif ($_POST['empPassword'] !== $_POST['confirmPassword']) {
+        echo "<script> alert('failed! Passwords do not match.');</script>";
+        exit;
+    }
+
+    if (empty($_FILES['profileImage']['name'])) {
+        echo "<script> alert('failed! Profile image is required.');</script>";
+        exit;
+    }
+
+    if (empty($_POST['mobileNumber'])) {
+        echo "<script> alert('failed! Mobile number is required.');</script>";
+        exit;
+    } elseif (!preg_match("/^[0-9]{10}$/", $_POST['mobileNumber'])) {
+        echo "<script> alert('Only 10 digit number is allowed!');</script>";
+        exit;
+    }
+
+    if (empty($_POST['gender'])) {
+        echo "<script> alert('failed! Gender is required.');</script>";
+        exit;
+    }
+
+    if (empty($_POST['hobby'])) {
+        echo "<script> alert('failed! At least one hobby is required.');</script>";
+        exit;
+    }
+
+    if (empty($_POST['country'])) {
+        echo "<script> alert('failed! Country is required.');</script>";
+        exit;
+    }
+
+    if (is_array($_FILES)) {
+
+        if (is_uploaded_file($_FILES['profileImage']['tmp_name'])) {
+            $sourcePath = $_FILES['profileImage']['tmp_name'];
+            $targetPath = "upload/" . $_FILES['profileImage']['name'];
+            move_uploaded_file($sourcePath, $targetPath);
+        }
+    }
+
+    $firstName = $_POST['firstName'];
+    $lastName = $_POST['lastName'];
+    $email = $_POST['email'];
+    $empPassword = $_POST['empPassword'];
+    $confirmPassword = $_POST['confirmPassword'];
+    $profileImage = $_FILES['profileImage']['name'];
+    $mobileNumber = $_POST['mobileNumber'];
+    $gender = $_POST['gender'];
+    $hobby = implode(',', $_POST['hobby']);
+    $country = $_POST['country'];
+
+
+
+    $hashempPassword = password_hash($empPassword, PASSWORD_DEFAULT);
+    $hashconfirmPassword = password_hash($confirmPassword, PASSWORD_DEFAULT);
+
+    // Insert Query
+    $sql = "INSERT INTO `AjaxCrud` (firstName, lastName, email, empPassword, confirmPassword, profileImage, mobileNumber, gender, hobby, country) 
+        VALUES ('$firstName', '$lastName', '$email', '$hashempPassword', ' $hashconfirmPassword','$profileImage', '$mobileNumber', '$gender', '$hobby', '$country')";
+    $result = mysqli_query($conn, $sql);
+
+    if ($result) {
+        echo "<script> alert('Data inserted successfully!');</script>";
+        echo "<script> window.location = 'showData.php'; </script>";
+    } else {
+
+        echo "<script> alert('failed! Can not Inserted Data.');</script>";
     }
 }
 
-// Insert Query
-$sql = "INSERT INTO `AjaxCrud` (firstName, lastName, email, empPassword, confirmPassword, profileImage, mobileNumber, gender, hobby, country) 
-VALUES ('$firstName', '$lastName', '$email', '$empPassword', ' $confirmPassword','$profileImage', '$mobileNumber', '$gender', '$hobby', '$country')";
-$result = mysqli_query($conn, $sql);
-
-if ($result) {
-    // echo "<script> alert('Successful! Insert Your Data.');</script>";    
-    // header("location:showData.php");
-    echo "<script> window.location = 'showData.php'; </script>";
-} else {
-    echo "<script> alert('failed! please try again!');</script>";
-}
-
-
 include "footer.php";
+
 ?>
 <script src="script.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>

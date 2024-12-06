@@ -40,34 +40,39 @@ function show_data($fetchData)
         </tr>';
 
 
-  if (count($fetchData) > 0) {
-    // $no = 1;
-    foreach ($fetchData as $data) 
-    { 
+  if (count($fetchData) > 0)
+  {
+    foreach ($fetchData as $rows) 
+    {
       echo "<tr>
-          <td>" . $data['id']. "</td>
-          <td>" . $data['firstName'] . "</td>
-          <td>" . $data['lastName'] . "</td>
-          <td>" . $data['email'] . "</td>
-          <td>" . $data['empPassword'] . "</td>
-          <td>" . $data['confirmPassword'] . "</td>
-          <td>  <img src='upload/" . $data['profileImage'] . "' width='100' height='100' alt='Profile Image'></td>
-          <td>" . $data['mobileNumber'] . "</td>  
-          <td>" . $data['gender'] . "</td>
-          <td>" . $data['hobby'] . "</td>
-          <td>" . $data['country'] . "</td>
-         
-          <td><a href='javascript:void(0)' onclick='editData(" . $data['id'] . ")'>Edit</a></td>
-          <td><a href='javascript:void(0)' onclick='deleteData(" . $data['id'] . ")'>Delete</a></td>  
+          <td>" . $rows['id'] . "</td>
+          <td>" . $rows['firstName'] . "</td>
+          <td>" . $rows['lastName'] . "</td>
+          <td>" . $rows['email'] . "</td>
+          <td>" . $rows['empPassword'] . "</td>
+          <td>" . $rows['confirmPassword'] . "</td>
+          <td>  <img src='upload/" . $rows['profileImage'] . "' width='100' height='100' alt='Profile Image'></td>
+          <td>" . $rows['mobileNumber'] . "</td>  
+          <td>" . $rows['gender'] . "</td>
+          <td>" . $rows['hobby'] . "</td>
+          <td>" . $rows['country'] . "</td>
+          
+          
+          <td><button  onclick='editData(" . $rows['id'] . ")'>Update</button></td>
+          <td><a href='' onclick='deleteData(" . $rows['id'] . ")'>Delete</a></td>  
            
           </tr>";
-      // $no++;
     }
   }
   echo "</table>";
 }
 
-include ("footer.php");
+include("footer.php");
 ?>
-<script src="script.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="script.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+  <!-- <td><a href='' onclick='editData(" . $rows['id'] . ")'>Edit</a></td> -->
+  <!-- <td><button class='edit' data-id='" . $rows['id'] . "'>Update</button></td> -->
+
+   
