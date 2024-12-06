@@ -66,33 +66,33 @@ include "db_connect.php";
                 </div>
                 <!-- Gender -->
                 <div class="form-check pt-4">
-                    <input class="form-check-input" type="radio" name="gender" value="female" id="gender">
+                    <input class="form-check-input" type="radio" name="gender" value="female" id="female">
                     <label class="form-check-label" for="flexRadioDefault1">
                         female
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="gender" value="male" id="gender">
+                    <input class="form-check-input" type="radio" name="gender" value="male" id="male">
                     <label class="form-check-label" for="flexRadioDefault2">
                         male
                     </label>
                 </div>
                 <!-- Hobbby -->
                 <div class="form-check pt-4">
-                    <input class="form-check-input" type="checkbox" value="Cricket" id="hobby" name="hobby[]">
+                    <input class="form-check-input" type="checkbox" value="Cricket" id="Cricket" name="hobby[]">
                     <label class="form-check-label" for="flexCheckDefault">
                         Cricket
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="Writing" id="hobby" name="hobby[]">
+                    <input class="form-check-input" type="checkbox" value="Writing" id="Writing" name="hobby[]">
                     <label class="form-check-label" for="flexCheckChecked">
                         Writing
                     </label>
                 </div>
 
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="Music" id="hobby" name="hobby[]">
+                    <input class="form-check-input" type="checkbox" value="Music" id="Music" name="hobby[]">
                     <label class="form-check-label" for="flexCheckDefault">
                         Music
                     </label>

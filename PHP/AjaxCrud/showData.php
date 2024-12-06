@@ -57,7 +57,8 @@ function show_data($fetchData)
           <td>" . $rows['hobby'] . "</td>
           <td>" . $rows['country'] . "</td>
           
-          <td><a href='' onclick='editData(" . $rows['id'] . ")'>Edit</a></td>
+          
+          <td><button  onclick='editData(" . $rows['id'] . ")'>Update</button></td>
           <td><a href='' onclick='deleteData(" . $rows['id'] . ")'>Delete</a></td>  
            
           </tr>";
@@ -70,3 +71,8 @@ include("footer.php");
 ?>
   <script src="script.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+  <!-- <td><a href='' onclick='editData(" . $rows['id'] . ")'>Edit</a></td> -->
+  <!-- <td><button class='edit' data-id='" . $rows['id'] . "'>Update</button></td> -->
+
+   
