@@ -361,3 +361,519 @@ if (isset($_POST['id'])) {
 }
 $conn->close();
 ?>
+
+
+
+// show data
+<?php
+include "heder.php";
+include "sideMenu.php";
+include("db_connect.php");
+
+$fetchData = fetch_data($conn);
+show_data($fetchData);
+
+// fetch query
+function fetch_data($conn)
+{
+  $query = "SELECT * from `AjaxCrud` ";
+  $result = mysqli_query($conn, $query);
+  if (mysqli_num_rows($result) > 0) {
+
+    $row = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    return $row;
+  } else {
+    return $row = [];
+  }
+}
+
+function show_data($fetchData)
+{
+  echo '<table border="1" id="tableData">
+        <tr>
+            <th>ID</th>
+            <th>firstName</th>
+            <th>lastName</th>
+            <th>email</th>
+            <th>empPassword</th>
+            <th>confirmPassword</th>
+            <th>profileImage</th>
+            <th>mobileNumber</th>
+            <th>gender</th>
+            <th>hobby</th>
+            <th>country</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>';
+
+
+  if (count($fetchData) > 0)
+  {
+    foreach ($fetchData as $rows) 
+    {
+      echo "<tr>
+          <td>" . $rows['id'] . "</td>
+          <td>" . $rows['firstName'] . "</td>
+          <td>" . $rows['lastName'] . "</td>
+          <td>" . $rows['email'] . "</td>
+          <td>" . $rows['empPassword'] . "</td>
+          <td>" . $rows['confirmPassword'] . "</td>
+          <td>  <img src='upload/" . $rows['profileImage'] . "' width='100' height='100' alt='Profile Image'></td>
+          <td>" . $rows['mobileNumber'] . "</td>  
+          <td>" . $rows['gender'] . "</td>
+          <td>" . $rows['hobby'] . "</td>
+          <td>" . $rows['country'] . "</td>
+
+        <td><a href='' onclick='editData(" . $rows['id'] . ")'>Edit</a></td> 
+          <td><a href='' onclick='deleteData(" . $rows['id'] . ")'>Delete</a></td>  
+           
+          </tr>";
+    }
+  }
+  echo "</table>";
+}
+
+include("footer.php");
+?>
+  <script src="script.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+  //update data 
+
+<?php
+
+
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+    edit_data($conn, $id);
+}
+
+if (isset($_POST['id'])) {
+    $id = $_POST['id'];
+    update_data($conn, $id);
+}
+
+// edit data query
+function edit_data($conn, $id)
+{
+    $query = "SELECT * FROM `AjaxCrud` WHERE id = $id";
+    $exec = mysqli_query($conn, $query);
+
+    $row = mysqli_fetch_assoc($exec);
+    echo json_encode($row);
+}
+
+// update data query
+function update_data($conn, $id)
+{
+    $firstName = $_POST['firstName'];
+    $lastName = $_POST['lastName'];
+    $email = $_POST['email'];
+    $empPassword = $_POST['empPassword'];
+    $confirmPassword = $_POST['confirmPassword'];
+    $profileImage = $_POST['profileImage'];
+    $mobileNumber = $_POST['mobileNumber'];
+    $gender = $_POST['gender'];
+    $hobby = $_POST['hobby'];
+    $country = $_POST['country'];
+
+     $query = "UPDATE `AjaxCrud` SET 
+                firstName ='$firstName',
+                lastName ='$lastName',
+                email = '$email',
+                empPassword = '$empPassword',
+                confirmPassword ='$confirmPassword',
+                profileImage = '$profileImage',
+                mobileNumber = '$mobileNumber',
+                gender = '$gender',
+                hobby = '$hobby',
+                country = '$country'
+                WHERE id = $id";
+
+    $exec = mysqli_query($conn, $query);
+
+    if ($exec) {
+        echo "<script>alert('Success! Updated Record')</script>";
+    } else {
+        echo "<script>alert('Error! Can Not Updated Record')</script>";
+    }
+}
+
+?>
+<script src="script.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+//update form 
+
+<?php
+include "heder.php";
+include "sideMenu.php";
+include "db_connect.php";
+?>
+
+
+<div class="container">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Crud Operation Using Ajax </h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Starter Page</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card card-yellow">
+        <div class="card-header">
+            <h3 class="card-title">Update Data</h3>
+        </div>
+        <form  action="" method="POST" id="updateForm" enctype="multipart/form-data">
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">FirstName</label>
+                    <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Enter firstname">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">LastName</label>
+                    <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Enter lastname">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Email address</label>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Enter email">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Password</label>
+                    <input type="password" class="form-control" id="empPassword" name="empPassword" placeholder="Enter Password">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Confirm Password</label>
+                    <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Enter Confirm Password">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputFile">File input</label>
+                    <div class="input-group">
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" name="profileImage" id="profileImage">
+                            <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+
+                        </div>
+                        <div class="input-group-append">
+                            <span class="input-group-text">Upload</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Mobile Number</label>
+                    <input type="text" class="form-control" id="mobileNumber" name="mobileNumber" placeholder="Enter Mobile Number">
+                </div>
+                <!-- Gender -->
+                <div class="form-check pt-4">
+                    <input class="form-check-input" type="radio" name="gender" value="female" id="female">
+                    <label class="form-check-label" for="flexRadioDefault1">
+                        female
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="gender" value="male" id="male">
+                    <label class="form-check-label" for="flexRadioDefault2">
+                        male
+                    </label>
+                </div>
+                <!-- Hobbby -->
+                <div class="form-check pt-4">
+                    <input class="form-check-input" type="checkbox" value="Cricket" id="Cricket" name="hobby[]">
+                    <label class="form-check-label" for="flexCheckDefault">
+                        Cricket
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="Writing" id="Writing" name="hobby[]">
+                    <label class="form-check-label" for="flexCheckChecked">
+                        Writing
+                    </label>
+                </div>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="Music" id="Music" name="hobby[]">
+                    <label class="form-check-label" for="flexCheckDefault">
+                        Music
+                    </label>
+                </div>
+                <!-- Country -->
+                <div class="dropdown pt-3 pb-4  ">
+                    <label for="country">Choose a country:</label>
+                    <select name="country" id="country">
+                        <option>Select</option>
+                        <option value="India">India</option>
+                        <option value="New Zealand">New Zealand</option>
+                        <option value="France">France</option>
+                        <option value="Japan">Japan</option>
+                        <option value="Austrelia">Austrelia</option>
+
+                    </select>
+                </div>
+            </div>
+            <div class="card-footer">
+                <button type="submit" name="update" id="update" value="update" class="btn btn-success">update</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<?php
+
+include "footer.php"; 
+
+?>
+<script src="script.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
+
+/////////
+
+
+
+
+
+
+
+
+Html 
+<!-- Modal to Edit User Data -->
+<div id="editModal" class="modal">
+    <div class="modal-content">
+        <h4>Edit User</h4>
+        <form id="editForm">
+            <input type="hidden" name="id" id="userId">
+            <label for="firstName">First Name</label>
+            <input type="text" name="firstName" id="firstName">
+
+            <label for="lastName">Last Name</label>
+            <input type="text" name="lastName" id="lastName">
+
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email">
+
+            <label for="empPassword">Password</label>
+            <input type="password" name="empPassword" id="empPassword">
+
+            <label for="confirmPassword">Confirm Password</label>
+            <input type="password" name="confirmPassword" id="confirmPassword">
+
+            <label for="mobileNumber">Mobile Number</label>
+            <input type="text" name="mobileNumber" id="mobileNumber">
+
+            <label for="gender">Gender</label>
+            <input type="text" name="gender" id="gender">
+
+            <label for="hobby">Hobby</label>
+            <input type="text" name="hobby" id="hobby">
+
+            <label for="country">Country</label>
+            <input type="text" name="country" id="country">
+
+            <button type="submit">Update</button>
+        </form>
+    </div>
+</div>
+
+
+// edit data query
+// function edit_data($conn, $id)
+// {
+//     $query = "SELECT * FROM `AjaxCrud` WHERE id = $id";
+//     $exec = mysqli_query($conn, $query);
+
+//     $row = mysqli_fetch_assoc($exec);
+//     echo json_encode($row);
+// }
+
+// update data query
+// function update_data($conn, $id)
+// {
+//     $firstName = $_POST['firstName'];
+//     $lastName = $_POST['lastName'];
+//     $email = $_POST['email'];
+//     $empPassword = $_POST['empPassword'];
+//     $confirmPassword = $_POST['confirmPassword'];
+//     $profileImage = $_POST['profileImage'];
+//     $mobileNumber = $_POST['mobileNumber'];
+//     $gender = $_POST['gender'];
+//     $hobby = $_POST['hobby'];
+//     $country = $_POST['country'];
+
+//      $query = "UPDATE `AjaxCrud` SET 
+//                 firstName ='$firstName',
+//                 lastName ='$lastName',
+//                 email = '$email',
+//                 empPassword = '$empPassword',
+//                 confirmPassword ='$confirmPassword',
+//                 profileImage = '$profileImage',
+//                 mobileNumber = '$mobileNumber',
+//                 gender = '$gender',
+//                 hobby = '$hobby',
+//                 country = '$country'
+//                 WHERE id = $id";
+
+//     $exec = mysqli_query($conn, $query);
+
+//     if ($exec) {
+//         echo "<script>alert('Success! Updated Record')</script>";
+//     } else {
+//         echo "<script>alert('Error! Can Not Updated Record')</script>";
+//     }
+// }
+
+
+////////////////////
+
+<?php
+include "heder.php";
+include "sideMenu.php";
+include("db_connect.php");
+
+$fetchData = fetch_data($conn);
+show_data($fetchData);
+
+// fetch query
+function fetch_data($conn)
+{
+  $query = "SELECT * from `AjaxCrud` ";
+  $result = mysqli_query($conn, $query);
+  if (mysqli_num_rows($result) > 0) {
+
+    $row = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    return $row;
+  } else {
+    return $row = [];
+  }
+}
+
+function show_data($fetchData)
+{
+  echo '<table border="1" id="tableData">
+        <tr>
+            <th>ID</th>
+            <th>firstName</th>
+            <th>lastName</th>
+            <th>email</th>
+            <th>empPassword</th>
+            <th>confirmPassword</th>
+            <th>profileImage</th>
+            <th>mobileNumber</th>
+            <th>gender</th>
+            <th>hobby</th>
+            <th>country</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>';
+
+
+  if (count($fetchData) > 0)
+  {
+    foreach ($fetchData as $rows) 
+    {
+      echo "<tr>
+          <td>" . $rows['id'] . "</td>
+          <td>" . $rows['firstName'] . "</td>
+          <td>" . $rows['lastName'] . "</td>
+          <td>" . $rows['email'] . "</td>
+          <td>" . $rows['empPassword'] . "</td>
+          <td>" . $rows['confirmPassword'] . "</td>
+          <td>  <img src='upload/" . $rows['profileImage'] . "' width='100' height='100' alt='Profile Image'></td>
+          <td>" . $rows['mobileNumber'] . "</td>  
+          <td>" . $rows['gender'] . "</td>
+          <td>" . $rows['hobby'] . "</td>
+          <td>" . $rows['country'] . "</td>
+
+      
+          <td><button  class='edit' data-id='" . $rows['id'] . "'>Update</button></td> 
+          <td><a href='' onclick='deleteData(" . $rows['id'] . ")'>Delete</a></td>  
+           
+          </tr>";
+    }
+  }
+  echo "</table>";
+}
+
+include("footer.php");
+?>
+
+//updateData
+<?php
+
+include("db_connect.php");
+
+if (isset($_GET['id'])) {
+     $id = $_GET['id'];
+    edit_data($conn, $id);
+}
+
+if (isset($_POST['id'])) {
+    $id = $_POST['id'];
+    update_data($conn, $id);
+}
+
+function edit_data($conn, $id) {
+    $query = "SELECT * FROM `AjaxCrud` WHERE id = $id";
+    $exec = mysqli_query($conn, $query);
+    
+    if ($exec) {
+        $row = mysqli_fetch_assoc($exec);
+        echo json_encode($row);
+    } else {
+        echo json_encode(["error" => "No data found"]);
+    }
+}
+
+
+
+
+//edit data
+// $(".edit").click(function () {
+//     var id = $(this).data("id");
+//     $.ajax({
+//         url: 'get_data.php',
+//         type: 'POST',
+//         data: { id: id },
+//         success: function (response) {
+
+//             // var data = JSON.parse(response);
+//             $('#id').val(data.id);
+//             $('#firstName').val(data.firstName);
+//             $('#lastName').val(data.lastName);
+//             $('#email').val(data.email);
+//             $('#empPassword').val(data.empPassword);
+//             $('#confirmPassword').val(data.confirmPassword);
+//             $('#mobileNumber').val(data.mobileNumber);
+//             $('#male').prop('checked', data.gender === 'Male');
+//             $('#female').prop('checked', data.gender === 'Female');
+//             $('#country').val(data.country);
+//         }
+//     });
+// });
+
+// updated data
+// $('#editForm').submit(function (e) {
+//     e.preventDefault();
+//     var formData = $(this).serialize();
+
+//     $.ajax({
+//         url: 'updateData.php',
+//         type: 'POST',
+//         data: formData,
+//         success: function (response) {
+//             alert(response);
+//             location.reload();
+//         }
+//     });
+// });
+
+// });
