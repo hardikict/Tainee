@@ -1,7 +1,7 @@
 <?php
-include "heder.php";
-include "sideMenu.php";
-include "db_connect.php";
+// include "heder.php";
+// include "sideMenu.php";
+// include "db_connect.php";
 ?>
 
 <div class="container">

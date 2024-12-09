@@ -86,7 +86,7 @@ session_start();
                                 <li class="nav-item">
                                     <a href="showData.php" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>ShowData</p>
+                                        <p>FetchData</p>
                                     </a>
                                 </li>
                             </ul>
