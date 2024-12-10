@@ -103,10 +103,13 @@ include("footer.php");
             <label for="editConfirmPassword">Confirm Password</label>
             <input type="password" class="form-control" id="editConfirmPassword" name="confirmPassword">
           </div>
-          <!-- <div class="form-group">
-              <label for="profileImage">profileImage</label>
-              <input type="file" class="form-control" id="editprofileImage" name="profileImage">
-            </div> -->
+         <!-- Profile Image -->
+         <div class="form-group">
+            <label for="editProfileImage">Profile Image</label>
+            <input type="file" class="form-control" id="editProfileImage" name="profileImage">
+            <!-- Display image -->
+            <img id="editProfileImagePreview" src="" alt="Profile Image" style="max-width: 200px; margin-top: 10px; display: none;">
+        </div>
         
           <div class="form-group">
             <label for="editMobile">Mobile Number</label>
