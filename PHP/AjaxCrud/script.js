@@ -153,8 +153,6 @@ $(document).ready(function () {
                     $('#editEmail').val(data.email);
                     $('#editPassword').val(data.empPassword);
                     $('#editConfirmPassword').val(data.confirmPassword);
-                    $('#editprofileImage').val(data.profileImage);
-
                     $('#editMobile').val(data.mobileNumber);
 
                     if (data.gender == 'female') {
@@ -172,6 +170,8 @@ $(document).ready(function () {
 
                     $('#editCountry').val(data.country);
 
+                    $('#editProfileImagePreview').attr('src', 'upload/' + data.profileImage).show();
+                    
                     //show modal
                     $('#editModal').modal('show');
 
