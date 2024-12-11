@@ -42,4 +42,31 @@ person.lastName = "Doe";
 person.age = 50;
 person.eyeColor = "blue"; 
 
-document.getElementById("obj").innerHTML = person.lastName +" age is " + person.age;
+document.getElementById("obj").innerHTML = person.firstName +" age is " + person.age;
+
+
+// window.alert(6 + 6);
+
+
+function displayDate() {
+    document.getElementById("date").innerHTML = Date();
+  }
+
+
+  // AJax Start
+
+  function loadDoc() {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        document.getElementById("demo").innerHTML =
+        this.responseText;
+      }
+    };
+    xhttp.open("GET", "demo.txt", true);
+    xhttp.send();
+  }
+
+  // $(document).ready(function(){
+
+  // });
